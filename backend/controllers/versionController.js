@@ -1,6 +1,6 @@
 // controllers/versionController.js
 
-const Version = require("../models/versionModel");
+import Version from '../models/versionModel.js'
 
 const versionController = {
   getAllVersions: async (req, res) => {
@@ -46,4 +46,5 @@ const versionController = {
   // Add other controller methods for CRUD operations
 };
 
-module.exports = versionController;
+// module.exports = versionController;
+export default versionController;

@@ -1,18 +1,28 @@
 // routes/fetchRoute.js
 
-const express = require("express");
-const axios = require("axios");
-const cheerio = require("cheerio");
-const Version = require("../models/versionModel");
+import  express from "express";
+import  axios from "axios";
+import  cheerio from "cheerio";
+import  versionController from "../controllers/versionController.js";
+
 
 const router = express.Router();
 
-router.get("/fetchAndSave", async (req, res) => {
+router.get('/test', (req, res) => {
+  // console.log(res)
+  res.send('Server is up and running!');
+});
+
+router.get("/", async (req, res) => {
+  console.log('Handling /fetch request');
   await scrapeInstagramAPKs();
+  console.log(res);
   res.send("Data fetched and saved!");
 });
 
+
 const scrapeInstagramAPKs = async () => {
+  console.log("Inside Func")
   try {
     const response = await axios.get(
       "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
@@ -105,4 +115,5 @@ const scrapeVariants = async (url, versionId) => {
     console.error("Error during scraping variants:", error.message);
   }
 };
-module.exports = router;
+// module.exports = router;
+export default router;

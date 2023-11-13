@@ -1,6 +1,7 @@
 // models/versionModel.js
 
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const variantSchema = new mongoose.Schema({
   variantId: String,
@@ -18,4 +19,5 @@ const versionSchema = new mongoose.Schema({
 
 const Version = mongoose.model("Version", versionSchema);
 
-module.exports = Version;
+// module.exports = Version;
+export default Version;

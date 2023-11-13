@@ -1,5 +1,6 @@
 {
   "name": "backend",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -12,6 +13,8 @@
     "axios": "^1.6.1",
     "cheerio": "^1.0.0-rc.12",
     "express": "^4.18.2",
-    "mongodb": "^6.2.0"
+    "mogoose": "^0.0.1-security",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0"
   }
 }
