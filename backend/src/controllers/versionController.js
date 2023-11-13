@@ -1,6 +1,6 @@
 // controllers/versionController.js
 
-import Version from '../models/versionModel.js'
+import { Version } from "../models/versionModel.js";
 
 const versionController = {
   getAllVersions: async (req, res) => {

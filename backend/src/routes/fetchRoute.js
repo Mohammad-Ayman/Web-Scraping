@@ -1,128 +1,48 @@
 // routes/fetchRoute.js
-
 import express from "express";
-import axios from "axios";
-import cheerio from "cheerio";
-import Version from "../models/versionModel.js";
-import versionController from "../controllers/versionController.js";
+import { scrapeVersions, scrapeVariants } from "../utils/scraping.js";
+import { Version, Variant } from "../models/versionModel.js";
 
 const router = express.Router();
 
-router.get("/test", (req, res) => {
-  // console.log(res)
-  res.send("Server is up and running!");
-});
-
-router.get("/", async (req, res) => {
+router.get("/versions", async (req, res) => {
   console.log("Handling /fetch request");
-  await scrapeInstagramAPKs();
+  let versions = await scrapeVersions();
+
+  // Iterate over versions and save each to the database
+  for (const version of versions) {
+    const newVersion = new Version({
+      versionId: version.version,
+      releaseDate: version.releaseDate,
+      totalVariants: version.variantsCount,
+      variantsURL: version.variantsURL,
+    });
+
+    console.log(newVersion); // Check the created version before saving
+    await newVersion.save();
+  }
   res.send("Data fetched and saved!");
 });
 
-const scrapeInstagramAPKs = async () => {
-  try {
-    const response = await axios.get(
-      "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
-    );
+router.get("/variants", async (req, res) => {
+  let [url, versionId] = req.body;
+  console.log("Handling /fetch request");
+  let variants = await scrapeVariants(url, versionId);
 
-    const versions = [];
-    const limit = 10; // Set the desired limit
-    const $ = cheerio.load(response.data);
-
-    // Iterate over individual APK rows
-    $(".appRow .table-row").each(async (index, e) => {
-      if (index < limit) {
-        // Extract the version information
-        const versionInfo = $(e)
-          .find(".appRowTitle.wrapText.marginZero.block-on-mobile")
-          .text()
-          .trim();
-
-        // Extract the release date
-        const versionReleaseDate = $(e)
-          .find(".dateyear_utc")
-          .attr("data-utcdate")
-          .trim();
-
-        const variantsCount = $(e).find(".appRowVariantTag").text().trim();
-        const variantsURL = $(e)
-          .find(".appRowVariantTag a")
-          .attr("href")
-          .trim();
-
-        // const variants = await scrapeVariants(
-        //   `https://www.apkmirror.com${variantsURL}`,
-        //   versionInfo
-        // );
-        // console.log(variants);
-        // Push the version information and release date as an object to the array
-        // Create a Mongoose document for each version
-        const versionDocument = new Version({
-          versionId: versionInfo, // You may need to adjust this based on your data
-          releaseDate: versionReleaseDate,
-          totalVariants: variantsCount,
-          variantsURL: variantsURL,
-        });
-        console.log(versionDocument);
-        await versionDocument.save();
-
-        versions.push(versionDocument);
-        // versions.push({
-        //   version: versionInfo,
-        //   releaseDate: versionReleaseDate,
-        //   variantsCount,
-        //   variantsURL,
-        //   // variants,
-        // });
-      }
+  // Iterate over versions and save each to the database
+  for (const variant of variants) {
+    const newVariant = new Variant({
+      versionId: variant.versionId,
+      variantId: variant.variantId,
+      architecture: variant.variantArchitecture,
+      minAndroidVersion: variant.variantMinAndroidVersion,
+      dpi: variant.dpi,
     });
 
-    // Log the array of version information
-    console.log("versions", versions.length);
-  } catch (error) {
-    console.error("Error during scraping versions:", error.message);
+    console.log(newVariant); // Check the created version before saving
+    await newVariant.save();
   }
-};
+  res.send("Data fetched and saved!");
+});
 
-const scrapeVariants = async (url, versionId) => {
-  try {
-    const response = await axios.get(url);
-
-    const variants = [];
-    const $ = cheerio.load(response.data);
-
-    // Iterate over individual APK rows
-    $(".variants-table .table-row:not(:first-child)").each((index, e) => {
-      // Extract the variant information
-      // console.log($(e).text());
-      const variantId = $(e)
-        .find(".table-cell:eq(0) .colorLightBlack:eq(0)")
-        .text()
-        .trim();
-
-      // Extract the architecture
-      const variantArchitecture = $(e).find(".table-cell:eq(1)").text().trim();
-
-      const variantMinAndroidVersion = $(e)
-        .find(".table-cell:eq(2)")
-        .text()
-        .trim();
-      const variantDpi = $(e).find(".table-cell:eq(3)").text().trim();
-      // Push the variant information as an object to the array
-      variants.push({
-        versionId: versionId,
-        variantId,
-        variantArchitecture: variantArchitecture,
-        variantMinAndroidVersion: variantMinAndroidVersion,
-        dpi: variantDpi,
-      });
-    });
-
-    // Log the array of version information
-    return variants;
-  } catch (error) {
-    console.error("Error during scraping variants:", error.message);
-  }
-};
-// module.exports = router;
 export default router;
