@@ -1,35 +1,32 @@
 // routes/fetchRoute.js
 
-import  express from "express";
-import  axios from "axios";
-import  cheerio from "cheerio";
-import  versionController from "../controllers/versionController.js";
-
+import express from "express";
+import axios from "axios";
+import cheerio from "cheerio";
+import Version from "../models/versionModel.js";
+import versionController from "../controllers/versionController.js";
 
 const router = express.Router();
 
-router.get('/test', (req, res) => {
+router.get("/test", (req, res) => {
   // console.log(res)
-  res.send('Server is up and running!');
+  res.send("Server is up and running!");
 });
 
 router.get("/", async (req, res) => {
-  console.log('Handling /fetch request');
+  console.log("Handling /fetch request");
   await scrapeInstagramAPKs();
-  console.log(res);
   res.send("Data fetched and saved!");
 });
 
-
 const scrapeInstagramAPKs = async () => {
-  console.log("Inside Func")
   try {
     const response = await axios.get(
       "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
     );
 
     const versions = [];
-    const limit = 1; // Set the desired limit
+    const limit = 10; // Set the desired limit
     const $ = cheerio.load(response.data);
 
     // Iterate over individual APK rows
@@ -52,24 +49,36 @@ const scrapeInstagramAPKs = async () => {
           .find(".appRowVariantTag a")
           .attr("href")
           .trim();
-        const variants = await scrapeVariants(
-          `https://www.apkmirror.com${variantsURL}`,
-          versionInfo
-        );
-        console.log(variants);
+
+        // const variants = await scrapeVariants(
+        //   `https://www.apkmirror.com${variantsURL}`,
+        //   versionInfo
+        // );
+        // console.log(variants);
         // Push the version information and release date as an object to the array
-        versions.push({
-          version: versionInfo,
+        // Create a Mongoose document for each version
+        const versionDocument = new Version({
+          versionId: versionInfo, // You may need to adjust this based on your data
           releaseDate: versionReleaseDate,
-          variantsCount,
-          variantsURL,
-          variants,
+          totalVariants: variantsCount,
+          variantsURL: variantsURL,
         });
+        console.log(versionDocument);
+        await versionDocument.save();
+
+        versions.push(versionDocument);
+        // versions.push({
+        //   version: versionInfo,
+        //   releaseDate: versionReleaseDate,
+        //   variantsCount,
+        //   variantsURL,
+        //   // variants,
+        // });
       }
     });
 
     // Log the array of version information
-    console.log(versions);
+    console.log("versions", versions.length);
   } catch (error) {
     console.error("Error during scraping versions:", error.message);
   }

@@ -3,6 +3,7 @@
 import mongoose from "../db/connection.js";
 
 const variantSchema = new mongoose.Schema({
+  versionId: String,
   variantId: String,
   architecture: String,
   minAndroidVersion: String,
@@ -11,9 +12,10 @@ const variantSchema = new mongoose.Schema({
 
 const versionSchema = new mongoose.Schema({
   versionId: String,
-  releaseDate: Date,
-  totalVariants: Number,
-  variants: [variantSchema],
+  releaseDate: String,
+  totalVariants: String,
+  variantsURL: String,
+  // variants: [variantSchema],
 });
 
 const Version = mongoose.model("Version", versionSchema);
