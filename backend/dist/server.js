@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,22 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-require("dotenv/config");
-const express_1 = __importDefault(require("express"));
-const connection_js_1 = require("./db/connection.js");
-const apiRoutes_js_1 = __importDefault(require("./routes/apiRoutes.js"));
-const fetchRoute_js_1 = __importDefault(require("./routes/fetchRoute.js"));
-const app = (0, express_1.default)();
+import "dotenv/config";
+import express from "express";
+import { connectToMongo } from "./db/connection.js";
+import apiRoutes from "./routes/apiRoutes.js";
+import fetchRoute from "./routes/fetchRoute.js";
+const app = express();
 const port = process.env.PORT || 3000;
-app.use("/api", apiRoutes_js_1.default);
-app.use("/fetch", fetchRoute_js_1.default);
+app.use("/api", apiRoutes);
+app.use("/fetch", fetchRoute);
 const server = app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(process.env.DATABASE_URL);
     console.log(`App running on http://localhost:${port}`);
-    yield (0, connection_js_1.connectToMongo)();
+    yield connectToMongo();
 }));
-exports.default = server;
+export default server;

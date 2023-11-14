@@ -10,7 +10,6 @@ const port = process.env.PORT || 3000;
 app.use("/api", apiRoutes);
 app.use("/fetch", fetchRoute);
 const server = app.listen(port, async () => {
-  console.log(process.env.DATABASE_URL);
   console.log(`App running on http://localhost:${port}`);
   await connectToMongo();
 });

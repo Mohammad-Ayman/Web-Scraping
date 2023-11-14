@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,19 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.scrapeVariants = exports.scrapeVersions = void 0;
-const axios_1 = __importDefault(require("axios"));
-const cheerio_1 = __importDefault(require("cheerio"));
-const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* () {
+import axios from "axios";
+import cheerio from "cheerio";
+export const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const response = yield axios_1.default.get("https://www.apkmirror.com/apk/instagram/instagram-instagram/");
+        const response = yield axios.get("https://www.apkmirror.com/apk/instagram/instagram-instagram/");
         const versions = [];
         const limit = 10; // Set the desired limit
-        const $ = cheerio_1.default.load(response.data);
+        const $ = cheerio.load(response.data);
         // Iterate over individual APK rows
         $(".appRow .table-row").each((index, e) => __awaiter(void 0, void 0, void 0, function* () {
             if (index < limit) {
@@ -55,13 +49,12 @@ const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* () {
         console.error("Error during scraping versions:", error.message);
     }
 });
-exports.scrapeVersions = scrapeVersions;
-const scrapeVariants = (url, versionId) => __awaiter(void 0, void 0, void 0, function* () {
+export const scrapeVariants = (url, versionId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const completeURL = `https://www.apkmirror.com${url}`;
-        const response = yield axios_1.default.get(completeURL);
+        const response = yield axios.get(completeURL);
         const variants = [];
-        const $ = cheerio_1.default.load(response.data);
+        const $ = cheerio.load(response.data);
         // Iterate over individual APK rows
         $(".variants-table .table-row:not(:first-child)").each((index, e) => {
             // Extract the variant information
@@ -94,4 +87,3 @@ const scrapeVariants = (url, versionId) => __awaiter(void 0, void 0, void 0, fun
         console.error("Error during scraping variants:", error.message);
     }
 });
-exports.scrapeVariants = scrapeVariants;

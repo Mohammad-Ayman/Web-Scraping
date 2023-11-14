@@ -2,9 +2,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 
 // Connection URI
-const uri =
-  "mongodb+srv://mohd22:testifyme@cluster0.98be0ic.mongodb.net/?retryWrites=true&w=majority";
-// const uri = `${process.env.DATABASE_URL}`;
+const uri = `mongodb+srv://${process.env.DB_USER_NAME}:${process.env.DB_PASSWORD}@cluster0.98be0ic.mongodb.net/?retryWrites=true&w=majority`;
 
 // Connect to MongoDB
 export const connectToMongo = async () => {

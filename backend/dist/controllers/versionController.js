@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,12 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const versionModel_js_1 = require("../models/versionModel.js");
+import { Version } from "../models/versionModel.js";
 const versionController = {
     getAllVersions: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const versions = yield versionModel_js_1.Version.find();
+            const versions = yield Version.find();
             res.json(versions);
         }
         catch (error) {
@@ -23,7 +21,7 @@ const versionController = {
     }),
     getVersionById: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const version = yield versionModel_js_1.Version.findById(req.params.versionId);
+            const version = yield Version.findById(req.params.versionId);
             res.json(version);
         }
         catch (error) {
@@ -33,7 +31,7 @@ const versionController = {
     }),
     deleteVersionById: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            yield versionModel_js_1.Version.deleteOne({ versionId: req.params.versionId });
+            yield Version.deleteOne({ versionId: req.params.versionId });
             res.send("Version deleted!");
         }
         catch (error) {
@@ -42,7 +40,7 @@ const versionController = {
     }),
     updateVersionById: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const updatedVersion = yield versionModel_js_1.Version.findOneAndUpdate({ versionId: req.params.versionId }, { $set: { releaseDate: new Date() } }, { new: true });
+            const updatedVersion = yield Version.findOneAndUpdate({ versionId: req.params.versionId }, { $set: { releaseDate: new Date() } }, { new: true });
             res.json(updatedVersion);
         }
         catch (error) {
@@ -52,4 +50,4 @@ const versionController = {
     // Add other controller methods for CRUD operations
 };
 // module.exports = versionController;
-exports.default = versionController;
+export default versionController;
