@@ -23,6 +23,8 @@
     "typescript": "^5.2.2"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/cheerio": "^0.22.34",
     "@types/mongodb": "^4.0.7",
     "@types/mongoose": "^5.11.97"
   }

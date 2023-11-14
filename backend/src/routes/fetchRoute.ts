@@ -1,11 +1,11 @@
 // routes/fetchRoute.js
-import express from "express";
+import express, {Request, Response} from "express";
 import { scrapeVersions, scrapeVariants } from "../utils/scraping.js";
 import { Version, Variant } from "../models/versionModel.js";
 
 const router = express.Router();
 
-router.get("/versions", async (req, res) => {
+router.get("/versions", async (req: Request, res: Response) => {
   console.log("Handling /fetch request");
   let versions = await scrapeVersions();
 
@@ -24,7 +24,7 @@ router.get("/versions", async (req, res) => {
   res.send("Data fetched and saved!");
 });
 
-router.get("/variants", async (req, res) => {
+router.get("/variants", async (req: Request, res: Response) => {
   let [url, versionId] = req.body;
   console.log("Handling /fetch request");
   let variants = await scrapeVariants(url, versionId);

@@ -1,13 +1,28 @@
 import axios from "axios";
 import cheerio from "cheerio";
 
+interface Version {
+  version: string;
+  releaseDate: string;
+  variantsCount: string;
+  variantsURL: string;
+}
+
+interface Variant {
+  versionId: string;
+  variantId: string;
+  variantArchitecture: string;
+  variantMinAndroidVersion: string;
+  dpi: string;
+}
+
 export const scrapeVersions = async () => {
   try {
     const response = await axios.get(
       "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
     );
 
-    const versions = [];
+    const versions: Version[] = [];
     const limit = 10; // Set the desired limit
     const $ = cheerio.load(response.data);
 
@@ -21,17 +36,16 @@ export const scrapeVersions = async () => {
           .trim();
 
         // Extract the release date
-        const versionReleaseDate = $(e)
+        const trimmedReleaseDate = $(e)
           .find(".dateyear_utc")
-          .attr("data-utcdate")
-          .trim();
+          .attr("data-utcdate");
+        const versionReleaseDate = trimmedReleaseDate ? trimmedReleaseDate.trim() : '';
 
         const variantsCount = $(e).find(".appRowVariantTag").text().trim();
-        const variantsURL = $(e)
+        const variantsURLe = $(e)
           .find(".appRowVariantTag a")
-          .attr("href")
-          .trim();
-
+          .attr("href");
+        const variantsURL = variantsURLe ? variantsURLe.trim() : '';
         versions.push({
           version: versionInfo,
           releaseDate: versionReleaseDate,
@@ -44,17 +58,17 @@ export const scrapeVersions = async () => {
     // Log the array of version information
     console.log("versions", versions);
     return versions;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error during scraping versions:", error.message);
   }
 };
 
-export const scrapeVariants = async (url, versionId) => {
+export const scrapeVariants = async (url: string, versionId: string) => {
   try {
     const completeURL = `https://www.apkmirror.com${url}`;
     const response = await axios.get(completeURL);
 
-    const variants = [];
+    const variants: Variant[] = [];
     const $ = cheerio.load(response.data);
 
     // Iterate over individual APK rows
@@ -87,7 +101,7 @@ export const scrapeVariants = async (url, versionId) => {
     // Log the array of version information
     console.log("variants", variants);
     return variants;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error during scraping variants:", error.message);
   }
 };

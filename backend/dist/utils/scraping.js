@@ -30,15 +30,15 @@ const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* () {
                     .text()
                     .trim();
                 // Extract the release date
-                const versionReleaseDate = $(e)
+                const trimmedReleaseDate = $(e)
                     .find(".dateyear_utc")
-                    .attr("data-utcdate")
-                    .trim();
+                    .attr("data-utcdate");
+                const versionReleaseDate = trimmedReleaseDate ? trimmedReleaseDate.trim() : '';
                 const variantsCount = $(e).find(".appRowVariantTag").text().trim();
-                const variantsURL = $(e)
+                const variantsURLe = $(e)
                     .find(".appRowVariantTag a")
-                    .attr("href")
-                    .trim();
+                    .attr("href");
+                const variantsURL = variantsURLe ? variantsURLe.trim() : '';
                 versions.push({
                     version: versionInfo,
                     releaseDate: versionReleaseDate,

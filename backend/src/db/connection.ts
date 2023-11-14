@@ -29,12 +29,12 @@ db.on("disconnected", () => {
   console.log("Mongoose disconnected");
 });
 
-// Close the Mongoose connection when the Node.js application is terminated
-process.on("SIGINT", () => {
-  db.close(() => {
-    console.log("Mongoose connection closed due to application termination");
-    process.exit(0);
-  });
-});
+// // Close the Mongoose connection when the Node.js application is terminated
+// process.on("SIGINT", () => {
+//   db.close(() => {
+//     console.log("Mongoose connection closed due to application termination");
+//     process.exit(0);
+//   });
+// });
 
 export default mongoose;
