@@ -1,7 +1,8 @@
 // routes/fetchRoute.js
-import express, {Request, Response} from "express";
+import express, { Request, Response } from "express";
 import { scrapeVersions, scrapeVariants } from "../utils/scraping.js";
-import { Version, Variant } from "../models/versionModel.js";
+import Version from "../models/versionModel.js";
+import Variant from "../models/variantModel.js";
 
 const router = express.Router();
 

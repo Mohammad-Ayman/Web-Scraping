@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Version } from "../models/versionModel.js";
+import Version from "../models/versionModel.js";
 const versionController = {
     getAllVersions: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {

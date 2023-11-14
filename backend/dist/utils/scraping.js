@@ -9,6 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import axios from "axios";
 import cheerio from "cheerio";
+// interface Version {
+//   version: string;
+//   releaseDate: string;
+//   variantsCount: string;
+//   variantsURL: string;
+// }
+// interface Variant {
+//   versionId: string;
+//   variantId: string;
+//   variantArchitecture: string;
+//   variantMinAndroidVersion: string;
+//   dpi: string;
+// }
 export const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield axios.get("https://www.apkmirror.com/apk/instagram/instagram-instagram/");
@@ -27,12 +40,12 @@ export const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* 
                 const trimmedReleaseDate = $(e)
                     .find(".dateyear_utc")
                     .attr("data-utcdate");
-                const versionReleaseDate = trimmedReleaseDate ? trimmedReleaseDate.trim() : '';
+                const versionReleaseDate = trimmedReleaseDate
+                    ? trimmedReleaseDate.trim()
+                    : "";
                 const variantsCount = $(e).find(".appRowVariantTag").text().trim();
-                const variantsURLe = $(e)
-                    .find(".appRowVariantTag a")
-                    .attr("href");
-                const variantsURL = variantsURLe ? variantsURLe.trim() : '';
+                const variantsURLe = $(e).find(".appRowVariantTag a").attr("href");
+                const variantsURL = variantsURLe ? variantsURLe.trim() : "";
                 versions.push({
                     version: versionInfo,
                     releaseDate: versionReleaseDate,

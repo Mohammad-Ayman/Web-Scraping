@@ -1,14 +1,5 @@
 // models/versionModel.js
-
 import mongoose from "../db/connection.js";
-
-const variantSchema = new mongoose.Schema({
-  versionId: String,
-  variantId: String,
-  architecture: String,
-  minAndroidVersion: String,
-  dpi: String,
-});
 
 const versionSchema = new mongoose.Schema({
   versionId: String,
@@ -16,6 +7,6 @@ const versionSchema = new mongoose.Schema({
   totalVariants: String,
   variantsURL: String,
 });
+const Version = mongoose.model("Version", versionSchema);
 
-export const Version = mongoose.model("Version", versionSchema);
-export const Variant = mongoose.model("Variant", variantSchema);
+export default Version;

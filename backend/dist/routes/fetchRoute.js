@@ -10,7 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 // routes/fetchRoute.js
 import express from "express";
 import { scrapeVersions, scrapeVariants } from "../utils/scraping.js";
-import { Version, Variant } from "../models/versionModel.js";
+import Version from "../models/versionModel.js";
+import Variant from "../models/variantModel.js";
 const router = express.Router();
 router.get("/versions", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("Handling /fetch request");

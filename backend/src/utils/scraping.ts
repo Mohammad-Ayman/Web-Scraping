@@ -1,20 +1,21 @@
 import axios from "axios";
 import cheerio from "cheerio";
 
-interface Version {
-  version: string;
-  releaseDate: string;
-  variantsCount: string;
-  variantsURL: string;
-}
+import { Version, Variant } from "../types/interfaces";
+// interface Version {
+//   version: string;
+//   releaseDate: string;
+//   variantsCount: string;
+//   variantsURL: string;
+// }
 
-interface Variant {
-  versionId: string;
-  variantId: string;
-  variantArchitecture: string;
-  variantMinAndroidVersion: string;
-  dpi: string;
-}
+// interface Variant {
+//   versionId: string;
+//   variantId: string;
+//   variantArchitecture: string;
+//   variantMinAndroidVersion: string;
+//   dpi: string;
+// }
 
 export const scrapeVersions = async () => {
   try {
@@ -39,13 +40,13 @@ export const scrapeVersions = async () => {
         const trimmedReleaseDate = $(e)
           .find(".dateyear_utc")
           .attr("data-utcdate");
-        const versionReleaseDate = trimmedReleaseDate ? trimmedReleaseDate.trim() : '';
+        const versionReleaseDate = trimmedReleaseDate
+          ? trimmedReleaseDate.trim()
+          : "";
 
         const variantsCount = $(e).find(".appRowVariantTag").text().trim();
-        const variantsURLe = $(e)
-          .find(".appRowVariantTag a")
-          .attr("href");
-        const variantsURL = variantsURLe ? variantsURLe.trim() : '';
+        const variantsURLe = $(e).find(".appRowVariantTag a").attr("href");
+        const variantsURL = variantsURLe ? variantsURLe.trim() : "";
         versions.push({
           version: versionInfo,
           releaseDate: versionReleaseDate,

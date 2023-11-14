@@ -1,6 +1,6 @@
 // controllers/versionController.js
 import { Express, Request, Response } from "express";
-import { Version } from "../models/versionModel.js";
+import Version from "../models/versionModel.js";
 
 const versionController = {
   getAllVersions: async (req: Request, res: Response) => {
