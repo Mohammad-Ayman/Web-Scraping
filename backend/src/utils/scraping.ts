@@ -1,21 +1,6 @@
 import axios from "axios";
 import cheerio from "cheerio";
-
 import { Version, Variant } from "../types/interfaces";
-// interface Version {
-//   version: string;
-//   releaseDate: string;
-//   variantsCount: string;
-//   variantsURL: string;
-// }
-
-// interface Variant {
-//   versionId: string;
-//   variantId: string;
-//   variantArchitecture: string;
-//   variantMinAndroidVersion: string;
-//   dpi: string;
-// }
 
 export const scrapeVersions = async () => {
   try {
@@ -27,35 +12,46 @@ export const scrapeVersions = async () => {
     const limit = 10; // Set the desired limit
     const $ = cheerio.load(response.data);
 
+    const promises: Promise<void>[] = [];
+
     // Iterate over individual APK rows
     $(".appRow .table-row").each(async (index, e) => {
       if (index < limit) {
-        // Extract the version information
-        const versionInfo = $(e)
-          .find(".appRowTitle.wrapText.marginZero.block-on-mobile")
-          .text()
-          .trim();
+        const promise = new Promise<void>((resolve) => {
+          // Extract the version information
+          const versionInfo = $(e)
+            .find(".appRowTitle.wrapText.marginZero.block-on-mobile")
+            .text()
+            .trim();
 
-        // Extract the release date
-        const trimmedReleaseDate = $(e)
-          .find(".dateyear_utc")
-          .attr("data-utcdate");
-        const versionReleaseDate = trimmedReleaseDate
-          ? trimmedReleaseDate.trim()
-          : "";
+          // Extract the release date
+          const trimmedReleaseDate = $(e)
+            .find(".dateyear_utc")
+            .attr("data-utcdate");
+          const versionReleaseDate = trimmedReleaseDate
+            ? trimmedReleaseDate.trim()
+            : "";
 
-        const variantsCount = $(e).find(".appRowVariantTag").text().trim();
-        const variantsURLe = $(e).find(".appRowVariantTag a").attr("href");
-        const variantsURL = variantsURLe ? variantsURLe.trim() : "";
-        versions.push({
-          version: versionInfo,
-          releaseDate: versionReleaseDate,
-          variantsCount,
-          variantsURL,
+          const variantsCount = $(e).find(".appRowVariantTag").text().trim();
+          const variantsURLe = $(e).find(".appRowVariantTag a").attr("href");
+          const variantsURL = variantsURLe ? variantsURLe.trim() : "";
+          versions.push({
+            version: versionInfo.split(" ")[1],
+            releaseDate: versionReleaseDate,
+            variantsCount: +variantsCount.split(" ")[0],
+            variantsURL,
+          });
+
+          resolve();
         });
+
+        // Add the promise to the array
+        promises.push(promise);
       }
     });
 
+    // Wait for all promises to resolve
+    await Promise.all(promises);
     // Log the array of version information
     console.log("versions", versions);
     return versions;
@@ -64,9 +60,10 @@ export const scrapeVersions = async () => {
   }
 };
 
-export const scrapeVariants = async (url: string, versionId: string) => {
+export const scrapeVariants = async (versionId: string) => {
   try {
-    const completeURL = `https://www.apkmirror.com${url}`;
+    const urlVersion = versionId.replace(".", "-");
+    const completeURL = `https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-${urlVersion}-release/`;
     const response = await axios.get(completeURL);
 
     const variants: Variant[] = [];

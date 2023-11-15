@@ -36,4 +36,13 @@ db.on("disconnected", () => {
 //     process.exit(0);
 //   });
 // });
+export const clearDatabase = () => __awaiter(void 0, void 0, void 0, function* () {
+    const { collections } = mongoose.connection;
+    const mongooseDeletePromises = [];
+    for (const key in collections) {
+        mongooseDeletePromises.push(collections[key].deleteMany());
+    }
+    yield Promise.all(mongooseDeletePromises);
+    console.log("deleted");
+});
 export default mongoose;

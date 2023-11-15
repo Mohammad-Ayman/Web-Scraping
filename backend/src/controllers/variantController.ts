@@ -5,7 +5,11 @@ import Variant from "../models/variantModel.js";
 const variantController = {
   getAllVariants: async (req: Request, res: Response) => {
     try {
-      const variants = await Variant.find();
+      console.log("params", req.params.versionId);
+      const variants = await Variant.find({
+        versionId: req.params.versionId.trim(),
+      });
+      console.log("variants", variants);
       res.json(variants);
     } catch (error: any) {
       console.error("Error getting variants:", error.message);
@@ -30,7 +34,14 @@ const variantController = {
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
-
+  deleteVariantsByVersionId: async (req: Request, res: Response) => {
+    try {
+      await Variant.deleteMany({ versionId: req.params.versionId });
+      res.send("variant deleted!");
+    } catch (error: any) {
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  },
   updateVariantById: async (req: Request, res: Response) => {
     try {
       const updatedVariant = await Variant.findOneAndUpdate(

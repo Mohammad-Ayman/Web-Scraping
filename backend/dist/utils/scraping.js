@@ -9,51 +9,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import axios from "axios";
 import cheerio from "cheerio";
-// interface Version {
-//   version: string;
-//   releaseDate: string;
-//   variantsCount: string;
-//   variantsURL: string;
-// }
-// interface Variant {
-//   versionId: string;
-//   variantId: string;
-//   variantArchitecture: string;
-//   variantMinAndroidVersion: string;
-//   dpi: string;
-// }
 export const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield axios.get("https://www.apkmirror.com/apk/instagram/instagram-instagram/");
         const versions = [];
         const limit = 10; // Set the desired limit
         const $ = cheerio.load(response.data);
+        const promises = [];
         // Iterate over individual APK rows
         $(".appRow .table-row").each((index, e) => __awaiter(void 0, void 0, void 0, function* () {
             if (index < limit) {
-                // Extract the version information
-                const versionInfo = $(e)
-                    .find(".appRowTitle.wrapText.marginZero.block-on-mobile")
-                    .text()
-                    .trim();
-                // Extract the release date
-                const trimmedReleaseDate = $(e)
-                    .find(".dateyear_utc")
-                    .attr("data-utcdate");
-                const versionReleaseDate = trimmedReleaseDate
-                    ? trimmedReleaseDate.trim()
-                    : "";
-                const variantsCount = $(e).find(".appRowVariantTag").text().trim();
-                const variantsURLe = $(e).find(".appRowVariantTag a").attr("href");
-                const variantsURL = variantsURLe ? variantsURLe.trim() : "";
-                versions.push({
-                    version: versionInfo,
-                    releaseDate: versionReleaseDate,
-                    variantsCount,
-                    variantsURL,
+                const promise = new Promise((resolve) => {
+                    // Extract the version information
+                    const versionInfo = $(e)
+                        .find(".appRowTitle.wrapText.marginZero.block-on-mobile")
+                        .text()
+                        .trim();
+                    // Extract the release date
+                    const trimmedReleaseDate = $(e)
+                        .find(".dateyear_utc")
+                        .attr("data-utcdate");
+                    const versionReleaseDate = trimmedReleaseDate
+                        ? trimmedReleaseDate.trim()
+                        : "";
+                    const variantsCount = $(e).find(".appRowVariantTag").text().trim();
+                    const variantsURLe = $(e).find(".appRowVariantTag a").attr("href");
+                    const variantsURL = variantsURLe ? variantsURLe.trim() : "";
+                    versions.push({
+                        version: versionInfo.split(" ")[1],
+                        releaseDate: versionReleaseDate,
+                        variantsCount: +variantsCount.split(" ")[0],
+                        variantsURL,
+                    });
+                    resolve();
                 });
+                // Add the promise to the array
+                promises.push(promise);
             }
         }));
+        // Wait for all promises to resolve
+        yield Promise.all(promises);
         // Log the array of version information
         console.log("versions", versions);
         return versions;
@@ -62,9 +57,10 @@ export const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* 
         console.error("Error during scraping versions:", error.message);
     }
 });
-export const scrapeVariants = (url, versionId) => __awaiter(void 0, void 0, void 0, function* () {
+export const scrapeVariants = (versionId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const completeURL = `https://www.apkmirror.com${url}`;
+        const urlVersion = versionId.replace(".", "-");
+        const completeURL = `https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-${urlVersion}-release/`;
         const response = yield axios.get(completeURL);
         const variants = [];
         const $ = cheerio.load(response.data);
