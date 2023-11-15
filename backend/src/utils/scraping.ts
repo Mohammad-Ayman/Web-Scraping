@@ -60,9 +60,10 @@ export const scrapeVersions = async () => {
   }
 };
 
-export const scrapeVariants = async (url: string, versionId: string) => {
+export const scrapeVariants = async (versionId: string) => {
   try {
-    const completeURL = `https://www.apkmirror.com${url}`;
+    const urlVersion = versionId.replace(".", "-");
+    const completeURL = `https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-${urlVersion}-release/`;
     const response = await axios.get(completeURL);
 
     const variants: Variant[] = [];

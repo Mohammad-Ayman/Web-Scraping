@@ -57,9 +57,10 @@ export const scrapeVersions = () => __awaiter(void 0, void 0, void 0, function* 
         console.error("Error during scraping versions:", error.message);
     }
 });
-export const scrapeVariants = (url, versionId) => __awaiter(void 0, void 0, void 0, function* () {
+export const scrapeVariants = (versionId) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const completeURL = `https://www.apkmirror.com${url}`;
+        const urlVersion = versionId.replace(".", "-");
+        const completeURL = `https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-${urlVersion}-release/`;
         const response = yield axios.get(completeURL);
         const variants = [];
         const $ = cheerio.load(response.data);
