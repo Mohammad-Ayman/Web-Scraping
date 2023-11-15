@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 const uri = `mongodb+srv://${process.env.DB_USER_NAME}:${process.env.DB_PASSWORD}@cluster0.98be0ic.mongodb.net/?retryWrites=true&w=majority`;
 
 // Connect to MongoDB
-export const connectToMongo = async () => {
+export const connectToMongo = async (): Promise<void> => {
   await mongoose.connect(uri);
 };
 
@@ -34,5 +34,17 @@ db.on("disconnected", () => {
 //     process.exit(0);
 //   });
 // });
+export const clearDatabase = async (): Promise<void> => {
+  const { collections } = mongoose.connection;
+
+  const mongooseDeletePromises: Array<Promise<mongoose.mongo.DeleteResult>> = [];
+
+  for (const key in collections) {
+    mongooseDeletePromises.push(collections[key].deleteMany());
+  }
+
+  await Promise.all(mongooseDeletePromises);
+  console.log("deleted");
+};
 
 export default mongoose;

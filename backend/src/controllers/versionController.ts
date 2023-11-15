@@ -15,6 +15,7 @@ const versionController = {
 
   getVersionById: async (req: Request, res: Response) => {
     try {
+      console.log("params:", req.params.versionId);
       const version = await Version.findById(req.params.versionId);
       res.json(version);
     } catch (error: any) {

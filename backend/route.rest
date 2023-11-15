@@ -1,7 +1,11 @@
-GET http://localhost:3000/api/versions
-###
-
 GET http://localhost:3000/fetch/versions
 ###
+GET http://localhost:3000/fetch/variants?url=/apk/instagram/instagram-instagram/instagram-instagram-310-0-0-0-84-release/"&versionId=310.0.0.0.84
 
-GET http://localhost:3000/fetch/versions/Instagram 310.0.0.0.60 alpha
+###
+GET http://localhost:3000/versions
+###
+
+GET http://localhost:3000/api/versions
+###
+GET http://localhost:3000/api/versions/65545f12f8e389e39d3b78c7

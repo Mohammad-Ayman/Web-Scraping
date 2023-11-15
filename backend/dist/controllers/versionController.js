@@ -21,6 +21,7 @@ const versionController = {
     }),
     getVersionById: (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         try {
+            console.log("params:", req.params.versionId);
             const version = yield Version.findById(req.params.versionId);
             res.json(version);
         }

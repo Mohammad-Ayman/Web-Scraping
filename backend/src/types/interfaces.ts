@@ -1,7 +1,7 @@
 interface Version {
   version: string;
   releaseDate: string;
-  variantsCount: string;
+  variantsCount: number;
   variantsURL: string;
 }
 
