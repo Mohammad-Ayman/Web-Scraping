@@ -25,10 +25,10 @@ router.get("/versions", async (req: Request, res: Response) => {
   res.send("Data fetched and saved!");
 });
 
-router.get("/variants", async (req: Request, res: Response) => {
-  let [url, versionId] = req.body;
-  console.log("Handling /fetch request");
-  let variants = await scrapeVariants(url, versionId);
+router.get("/variants/:url/:versionId", async (req: Request, res: Response) => {
+  let { url, versionId } = req.params;
+  console.log("Handling /fetch request", req.params);
+  let variants = await scrapeVariants(url.trim(), versionId.trim());
 
   // Iterate over versions and save each to the database
   for (const variant of variants!) {

@@ -29,10 +29,10 @@ router.get("/versions", (req, res) => __awaiter(void 0, void 0, void 0, function
     }
     res.send("Data fetched and saved!");
 }));
-router.get("/variants", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let [url, versionId] = req.body;
-    console.log("Handling /fetch request");
-    let variants = yield scrapeVariants(url, versionId);
+router.get("/variants/:url/:versionId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    let { url, versionId } = req.params;
+    console.log("Handling /fetch request", req.params);
+    let variants = yield scrapeVariants(url.trim(), versionId.trim());
     // Iterate over versions and save each to the database
     for (const variant of variants) {
         const newVariant = new Variant({
