@@ -6,7 +6,9 @@ const variantController = {
   getAllVariants: async (req: Request, res: Response) => {
     try {
       console.log("params", req.params.versionId);
-      const variants = await Variant.find({ versionId: req.params.versionId });
+      const variants = await Variant.find({
+        versionId: req.params.versionId.trim(),
+      });
       console.log("variants", variants);
       res.json(variants);
     } catch (error: any) {
