@@ -12,7 +12,7 @@ router.delete("/versions/:versionId", versionsController.deleteVersionById);
 router.put("/versions/:versionId", versionsController.updateVersionById);
 
 router.get("/variants", variantController.getAllVariants);
-router.get("/variants/:versionId", variantController.getVariantById);
+router.get("/variants/:versionId", variantController.getVariantByVersionId);
 router.delete("/variants/:versionId", variantController.deleteVariantById);
 router.put("/variants/:versionId", variantController.updateVariantById);
 

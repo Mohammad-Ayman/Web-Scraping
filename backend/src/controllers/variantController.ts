@@ -5,11 +5,7 @@ import Variant from "../models/variantModel.js";
 const variantController = {
   getAllVariants: async (req: Request, res: Response) => {
     try {
-      console.log("params", req.params.versionId);
-      const variants = await Variant.find({
-        versionId: req.params.versionId.trim(),
-      });
-      console.log("variants", variants);
+      const variants = await Variant.find();
       res.json(variants);
     } catch (error: any) {
       console.error("Error getting variants:", error.message);
@@ -17,10 +13,19 @@ const variantController = {
     }
   },
 
-  getVariantById: async (req: Request, res: Response) => {
+  getVariantByVersionId: async (req: Request, res: Response) => {
     try {
-      const variant = await Variant.findById(req.params.variantId);
-      res.json(variant);
+      const variants = await Variant.find({
+        versionId: req.params.versionId.trim(),
+      });
+      if (variants.length > 0) {
+        res.json(variants);
+      } else {
+        // If no variants are found, return an appropriate response
+        res
+          .status(404)
+          .json({ message: "Variants not found for the given versionId" });
+      }
     } catch (error: any) {
       console.error("Error getting variant by ID:", error.message);
       res.status(500).send("Internal Server Error");
