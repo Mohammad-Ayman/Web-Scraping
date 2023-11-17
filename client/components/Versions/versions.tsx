@@ -3,12 +3,12 @@ import Link from "next/link";
 import Styles from "./styles/versions.module.css";
 
 interface VersionsProps {
-  versionId: string;
-  totalVariants: number;
-  releaseDate: string;
-  image: string;
+  // versionId: string;
+  // totalVariants: number;
+  // releaseDate: string;
+  // image: string;
   header: string;
-  setVariants?: (versionId: string) => void;
+  setVariants: (id: string) => void;
 }
 const Versions: React.FC<VersionsProps> = (props) => {
   const getClickedCourse = (event: React.MouseEvent<HTMLUListElement>) => {
@@ -17,8 +17,8 @@ const Versions: React.FC<VersionsProps> = (props) => {
       const clickedCourseID = (event.target as HTMLElement)
         ?.closest("li")
         ?.getAttribute("data-courseid");
-
-      props.setVariants!(clickedCourseID);
+      // console.log("CLicked", liExist, clickedCourseID);
+      if (clickedCourseID) props.setVariants(clickedCourseID);
     }
   };
 

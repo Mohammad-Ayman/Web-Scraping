@@ -6,7 +6,7 @@ interface App {
   id: string;
   name: string;
   image: string;
-  totalVariants: number;
+  // totalVariants: number;
 }
 interface DisplayAppsProps {
   AllApps: App[];

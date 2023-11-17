@@ -25,6 +25,7 @@ const Courses = () => {
     }
   };
   const setVariants = (id: string) => {
+    console.log(id);
     setVersionId(id);
   };
 
@@ -36,16 +37,11 @@ const Courses = () => {
       >
         <Versions
           header={"Versions"}
-          coursesSource={allCourses}
-          courses={allCourses}
           setVariants={setVariants}
-          // getClickedCourseName={renderClickedCourse}
         />
         <Variants
           key={versionId}
           header={"Variants"}
-          coursesSource={allCourses}
-          courses={allCourses}
           versionId={versionId}
           // getClickedCourseName={renderClickedCourse}
         />

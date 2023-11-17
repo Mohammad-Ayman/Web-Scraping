@@ -14,13 +14,16 @@ interface Variant {
 }
 interface DisplayCardsProps {
   url: string;
+  mapVersionId: string;
 }
-const DisplayCards: React.FC<DisplayCardsProps> = ({ url }) => {
+const DisplayCards: React.FC<DisplayCardsProps> = ({ url, mapVersionId }) => {
   const [variants, setVariants] = useState<Variant[]>([]);
   const getVariants = async () => {
     try {
+      await fetch(`http://localhost:8000/fetch/variants/${mapVersionId}`);
       const response = await fetch(url);
       const data = await response.json();
+      console.log("data", data.length);
       setVariants(data);
     } catch (error) {
       console.error("Error fetching data:", error);

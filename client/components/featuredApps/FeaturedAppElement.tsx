@@ -40,7 +40,7 @@ interface FeaturedAppElementProps {
   id: string;
   name: string;
   image: string;
-  totalVariants: number;
+  // totalVariants: number;
 }
 const FeaturedAppElement: React.FC<FeaturedAppElementProps> = (props) => {
   const router = useRouter();

@@ -6,18 +6,26 @@ import styles from "./styles/featuredApps.module.css";
 let apps = [
   {
     name: "Instagram",
+    id: "Instagram",
+
     image: "/InstagramXL.png",
   },
   {
     name: "TikTok",
+    id: "TikTok",
+
     image: "/tiktok.png",
   },
   {
     name: "Snapchat",
+    id: "Snapchat",
+
     image: "/snapchat.png",
   },
   {
     name: "Facebook",
+    id: "Facebook",
+
     image: "/Facebook.png",
   },
 ];

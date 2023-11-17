@@ -2,7 +2,12 @@ import DisplayVariants from "./DisplayVariants";
 import Link from "next/link";
 import Styles from "./styles/variants.module.css";
 
-const Variants = (props) => {
+interface VariantsProps {
+  header: string;
+  versionId: string;
+}
+
+const Variants: React.FC<VariantsProps> = (props) => {
   return (
     <section
       className={`${Styles["variants-container"]}`}
@@ -21,6 +26,7 @@ const Variants = (props) => {
       <ul className={Styles.coursesList}>
         <DisplayVariants
           // url={"http://localhost:8000/api/variants/310.0.0.0.84"}
+          mapVersionId={props.versionId}
           url={`http://localhost:8000/api/variants/${props.versionId}`}
         ></DisplayVariants>
       </ul>
