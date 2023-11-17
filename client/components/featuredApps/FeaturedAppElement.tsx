@@ -36,16 +36,13 @@ const BookmarkButton = styled.button`
     transform: scale(1.15);
   }
 `;
-interface FeaturedAppElement {
-  _id: string;
+interface FeaturedAppElementProps {
   id: string;
-  image: string;
   name: string;
-  duration: number;
-  rate: number;
-  price: string;
+  image: string;
+  totalVariants: number;
 }
-const FeaturedAppElement: React.FC<FeaturedAppElement> = (props) => {
+const FeaturedAppElement: React.FC<FeaturedAppElementProps> = (props) => {
   const router = useRouter();
   const reviewBtnHandler = (_id: string) => {
     if (_id) {
@@ -60,18 +57,18 @@ const FeaturedAppElement: React.FC<FeaturedAppElement> = (props) => {
       key={props.id}
       className={`${styles["course-card"]} mflex`}
       data-courseid={props.id}
-      onClick={() => reviewBtnHandler(props._id)}
+      onClick={() => reviewBtnHandler(props.id)}
     >
       <div className={`${styles["course-image__container"]}`}>
         <Image
           src={props.image}
           width={1770}
           height={1180}
-          alt="Picture of the author"
+          alt="Picture of the app"
         />
       </div>
       <h3 className={styles["course-name"]}>{props.name}</h3>
-      <div className={`${styles["course-info"]} mflex`}>
+      {/* <div className={`${styles["course-info"]} mflex`}>
         <p className={`${styles["course-duration"]} mflex`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +103,7 @@ const FeaturedAppElement: React.FC<FeaturedAppElement> = (props) => {
         <ButtonContainer>
           <PriceBox>${props.price}</PriceBox>
         </ButtonContainer>
-      </div>
+      </div> */}
     </li>
   );
 };

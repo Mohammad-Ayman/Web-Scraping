@@ -11,14 +11,15 @@ interface Version {
   image: string;
   author: string;
 }
-
-const DisplayCards = () => {
+interface DisplayCardsProps {
+  url: string;
+}
+const DisplayCards: React.FC<DisplayCardsProps> = ({ url }) => {
   const [versions, setVersions] = useState<Version[]>([]);
   const getVersions = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/versions");
+      const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
       setVersions(data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -39,7 +40,7 @@ const DisplayCards = () => {
         author={course.totalVariants}
         saved={true}
       >
-        <Button>View Variants</Button>
+        {/* <Button>View Variants</Button> */}
       </CardElement>
     );
   });

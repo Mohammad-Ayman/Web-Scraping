@@ -3,10 +3,10 @@ import styles from "./styles/featuredApps.module.css";
 import FeaturedAppElement from "./FeaturedAppElement";
 
 interface App {
-  _id: string;
-  versionId: string;
+  id: string;
+  name: string;
+  image: string;
   totalVariants: number;
-  releaseDate: string;
 }
 interface DisplayAppsProps {
   AllApps: App[];
@@ -15,15 +15,15 @@ interface DisplayAppsProps {
 const DisplayApps: React.FC<DisplayAppsProps> = ({ AllApps }) => {
   return (
     <ul className={`${styles["cards-container"]} mflex`}>
-      {AllApps.map((course) => (
+      {AllApps.map((app) => (
         <FeaturedAppElement
-          key={course._id}
-          id={course.versionId}
-          name={course.versionId}
-          image="/facebook.png"
-          duration={course.totalVariants}
-          rate={4.0}
-          price={course.releaseDate}
+          key={app.id}
+          id={app.id}
+          name={app.name}
+          image={app.image}
+          // duration={app.totalVariants}
+          // rate={4.0}
+          // price={app.releaseDate}
         />
       ))}
     </ul>

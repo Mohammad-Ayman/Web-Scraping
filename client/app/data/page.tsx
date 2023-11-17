@@ -2,21 +2,17 @@
 import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
 import { useState, useEffect } from "react";
-import Versions from "@/components/xyz/versions";
+import Versions from "@/components/Versions/versions";
+import Variants from "@/components/Variants/Variants";
 import FeaturedApps from "@/components/featuredApps/FeaturedApps";
 
 import styles from "./coursePage.module.css";
 
-
 const Courses = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [displayCourse, setDisplayCourse] = useState("");
+  const [versionId, setVersionId] = useState("310.0.0.0.84");
   const [allCourses, setAllCourses] = useState([]);
 
-  // const renderClickedCourse = (courseName) => {
-  //   const clickedCourseIndex = allCourses.indexOf(courseName);
-  //   setDisplayCourse(allCourses[clickedCourseIndex]);
-  // };
   const [versions, setVersions] = useState([]);
   const getVersions = async () => {
     try {
@@ -28,20 +24,32 @@ const Courses = () => {
       console.error("Error fetching data:", error);
     }
   };
-  useEffect(() => {
-    getVersions();
-  }, []);
+  const setVariants = (id: string) => {
+    setVersionId(id);
+  };
+
   return (
-    <main
-      className={`home-container  ${styles["home-container__courses"]}`}
-    >
+    <main className={`home-container  ${styles["home-container__courses"]}`}>
       <FeaturedApps></FeaturedApps>
-      <Versions
-        header={"Versions"}
-        coursesSource={allCourses}
-        courses={allCourses}
-        // getClickedCourseName={renderClickedCourse}
-      />
+      <div
+        className={`home-container grid-2 ${styles["home-container__courses"]}`}
+      >
+        <Versions
+          header={"Versions"}
+          coursesSource={allCourses}
+          courses={allCourses}
+          setVariants={setVariants}
+          // getClickedCourseName={renderClickedCourse}
+        />
+        <Variants
+          key={versionId}
+          header={"Variants"}
+          coursesSource={allCourses}
+          courses={allCourses}
+          versionId={versionId}
+          // getClickedCourseName={renderClickedCourse}
+        />
+      </div>
     </main>
   );
 };

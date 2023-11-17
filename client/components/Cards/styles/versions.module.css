@@ -10,8 +10,8 @@
 }
 
 .coursesList {
-  /* max-height: 110vh;
-  overflow-y: scroll; */
+  max-height: 100vh;
+  overflow-y: scroll;
 }
 .coursesList::-webkit-scrollbar {
   width: 0em;
