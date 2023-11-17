@@ -62,8 +62,8 @@ const FeaturedAppElement: React.FC<FeaturedAppElementProps> = (props) => {
       <div className={`${styles["course-image__container"]}`}>
         <Image
           src={props.image}
-          width={1770}
-          height={1180}
+          width={3500}
+          height={3499}
           alt="Picture of the app"
         />
       </div>

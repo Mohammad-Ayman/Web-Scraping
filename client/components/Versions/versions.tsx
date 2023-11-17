@@ -1,16 +1,24 @@
-import DisplayCards from "../Cards/DisplayCards";
+import DisplayVersions from "./DisplayVersions";
 import Link from "next/link";
-import Styles from "../Cards/styles/versions.module.css";
+import Styles from "./styles/versions.module.css";
 
-const Versions = (props) => {
-  const getClickedCourse = (event) => {
-    const liExist = event.target.closest("li");
+interface VersionsProps {
+  versionId: string;
+  totalVariants: number;
+  releaseDate: string;
+  image: string;
+  header: string;
+  setVariants?: (versionId: string) => void;
+}
+const Versions: React.FC<VersionsProps> = (props) => {
+  const getClickedCourse = (event: React.MouseEvent<HTMLUListElement>) => {
+    const liExist = (event.target as HTMLElement)?.closest("li");
     if (liExist !== null) {
-      const clickedCourseID = event.target
-        .closest("li")
-        .getAttribute("data-courseid");
+      const clickedCourseID = (event.target as HTMLElement)
+        ?.closest("li")
+        ?.getAttribute("data-courseid");
 
-      props.setVariants(clickedCourseID);
+      props.setVariants!(clickedCourseID);
     }
   };
 
@@ -26,7 +34,9 @@ const Versions = (props) => {
         <h2 className="header-text">{props.header}</h2>
       </div>
       <ul onClick={getClickedCourse} className={Styles.coursesList}>
-        <DisplayCards url={"http://localhost:8000/api/versions"}></DisplayCards>
+        <DisplayVersions
+          url={"http://localhost:8000/api/versions"}
+        ></DisplayVersions>
       </ul>
     </section>
   );

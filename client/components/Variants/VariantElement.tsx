@@ -1,7 +1,7 @@
 "use client";
 import { useState, useContext, ReactNode } from "react";
 import Image from "next/image";
-import styles from "../Cards/styles/cardElement.module.css";
+import styles from "../Versions/styles/VersionElement.module.css";
 
 interface Variant {
   saved: boolean;
@@ -20,19 +20,20 @@ const VariantElement: React.FC<Variant> = (props) => {
       className={`${styles["myLearning-card"]} mflex`}
       data-courseid={props.variantId}
     >
-      <div className={styles["image-container"]}>
+      {/* <div className={styles["image-container"]}>
         <Image
-          src="/instagramXL.png"
+          src="/tiktok.png"
           width={3500}
           height={3499}
           alt="Picture of the author"
         />
-      </div>
+      </div> */}
       <div className={`${styles.text} mflex`}>
         <div style={{ width: "100%", height: "100%" }}>
           <div className={`${styles["course"]} mflex`}>
-            <h2>{props.variantId} </h2>
-            <h2>{props.dpi}</h2>
+            <h2>Variant ID: {props.variantId} </h2>
+            <h2>Minimum Version: {props.variantMinAndroidVersion}</h2>
+            
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -46,9 +47,9 @@ const VariantElement: React.FC<Variant> = (props) => {
               />
             </svg>
           </div>
-          <h3 className={styles["author-name"]}>{props.variantArchitecture}</h3>
+          <h3 className={styles["author-name"]}>Architecture: {props.variantArchitecture}</h3>
           <h3 className={styles["author-name"]}>
-            {props.variantMinAndroidVersion}
+            DPI: {props.dpi}
           </h3>
         </div>
         {props.children}

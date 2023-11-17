@@ -1,11 +1,15 @@
 import DisplayVariants from "./DisplayVariants";
 import Link from "next/link";
-import Styles from "../Cards/styles/versions.module.css";
+import Styles from "./styles/variants.module.css";
 
 const Variants = (props) => {
   return (
-    <section style={{ paddingTop: "3rem" }}>
+    <section
+      className={`${Styles["variants-container"]}`}
+      // style={{ paddingTop: "3rem" }}
+    >
       <div
+        className={Styles.header}
         style={{
           display: "flex",
           alignItems: "center",

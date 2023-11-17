@@ -1,20 +1,18 @@
 "use client";
-import CardElement from "./cardElement";
-import Button from "@/components/UI/Button";
+import VersionElement from "./VersionElement";
 import { useState, useEffect } from "react";
 
 interface Version {
-  _id: string;
   versionId: string;
   totalVariants: number;
   releaseDate: string;
   image: string;
-  author: string;
+  onClick?: () => void;
 }
-interface DisplayCardsProps {
+interface DisplayVersionsProps {
   url: string;
 }
-const DisplayCards: React.FC<DisplayCardsProps> = ({ url }) => {
+const DisplayVersions: React.FC<DisplayVersionsProps> = ({ url }) => {
   const [versions, setVersions] = useState<Version[]>([]);
   const getVersions = async () => {
     try {
@@ -30,20 +28,20 @@ const DisplayCards: React.FC<DisplayCardsProps> = ({ url }) => {
   }, []);
   return versions.map((course) => {
     return (
-      <CardElement
+      <VersionElement
         onClick={() => console.log("Course Clicked")}
-        key={course._id}
+        key={course.versionId}
         id={course.versionId}
-        name={course.versionId}
+        versionId={course.versionId}
         image={course.image}
         date={course.releaseDate}
-        author={course.totalVariants}
+        totalVariants={course.totalVariants}
         saved={true}
       >
         {/* <Button>View Variants</Button> */}
-      </CardElement>
+      </VersionElement>
     );
   });
 };
 
-export default DisplayCards;
+export default DisplayVersions;

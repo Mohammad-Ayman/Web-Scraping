@@ -29,21 +29,23 @@ const DisplayCards: React.FC<DisplayCardsProps> = ({ url }) => {
   useEffect(() => {
     getVariants();
   }, []);
-  return variants.map((variant) => {
-    return (
-      <VariantElement
-        onClick={() => console.log("variant Clicked")}
-        key={variant.variantId}
-        versionId={variant.versionId}
-        variantId={variant.variantId}
-        variantArchitecture={variant.architecture}
-        variantMinAndroidVersion={variant.minAndroidVersion}
-        dpi={variant.dpi}
-        saved={true}
-      >
-      </VariantElement>
-    );
-  });
+  return (
+    variants.length > 0 &&
+    variants.map((variant) => {
+      return (
+        <VariantElement
+          onClick={() => console.log("variant Clicked")}
+          key={variant.variantId}
+          versionId={variant.versionId}
+          variantId={variant.variantId}
+          variantArchitecture={variant.architecture}
+          variantMinAndroidVersion={variant.minAndroidVersion}
+          dpi={variant.dpi}
+          saved={true}
+        ></VariantElement>
+      );
+    })
+  );
 };
 
 export default DisplayCards;
