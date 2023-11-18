@@ -6,12 +6,12 @@ GET http://localhost:8000/fetch/variants/310.0.0.0.84
 GET http://localhost:8000/versions
 ###
 
-GET http://localhost:8000/api/versions
+GET http://localhost:8000/api/versions/instagram/instagram-instagram
 ###
 GET http://localhost:8000/api/versions/65545f12f8e389e39d3b78c7
 ###
 GET http://localhost:8000/api/variants
 ###
-GET http://localhost:8000/api/variants/310.0.0.0.139/apk/instagram/instagram-instagram/instagram-instagram-310-0-0-0-77-release/
+GET http://localhost:8000/api/variants/310.0.0.0.130/apk/instagram/instagram-instagram/instagram-instagram-310-0-0-0-130-release
 ###
 GET http://localhost:3000/versions

@@ -7,8 +7,6 @@ export const scrapeVersions = async (app: string, packageName: string) => {
     const response = await axios.get(
       `https://www.apkmirror.com/apk/${app}/${packageName}`
     );
-    // "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
-    // "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok/"
 
     const versions: Version[] = [];
     const limit = 10; // Set the desired limit
@@ -70,7 +68,6 @@ export const scrapeVariants = async (
   console.log(versionId);
   try {
     const urlVersion = variantsUrl.replace(".", "-");
-    // const completeURL = `https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-${urlVersion}-release/`;
     const completeURL = `https://www.apkmirror.com/apk${urlVersion}`;
     console.log("complete URL", completeURL);
     const response = await axios.get(completeURL);
