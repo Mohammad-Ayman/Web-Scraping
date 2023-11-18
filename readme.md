@@ -17,20 +17,20 @@ Deletion Functionality: Users can delete unwanted versions from the database.
 
 # Frontend:
 
-Next.js
-Typescript
-css Modules
-Tailwind
+1. Next.js
+2. Typescript
+3. css Modules
+4. Tailwind
 
 # Backend:
 
-Express.js
-Typescript
-MongoDB with Mongoose
+1. Express.js
+2. Typescript
+3. MongoDB with Mongoose
 
 # Scraping:
 
-cheerio
+1.cheerio
 
 ## Getting Started
 
