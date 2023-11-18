@@ -5,14 +5,15 @@ import { useState, useEffect } from "react";
 import Versions from "@/components/Versions/versions";
 import Variants from "@/components/Variants/Variants";
 import FeaturedApps from "@/components/featuredApps/FeaturedApps";
+import appContext from "@/store/App-Context";
 
 import styles from "./coursePage.module.css";
 
 const Courses = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [versionId, setVersionId] = useState("310.0.0.0.84");
-  const [allCourses, setAllCourses] = useState([]);
-
+  const [featuredApp, setFeaturedApp] = useState("instagram");
+  const [appUrl, setAppUrl] = useState("instagram/instagram-instagram/");
   const [versions, setVersions] = useState([]);
   const getVersions = async () => {
     try {
@@ -30,23 +31,29 @@ const Courses = () => {
   };
 
   return (
-    <main className={`home-container  ${styles["home-container__courses"]}`}>
-      <FeaturedApps></FeaturedApps>
-      <div
-        className={`home-container grid-2 ${styles["home-container__courses"]}`}
-      >
-        <Versions
-          header={"Versions"}
-          setVariants={setVariants}
-        />
-        <Variants
-          key={versionId}
-          header={"Variants"}
-          versionId={versionId}
-          // getClickedCourseName={renderClickedCourse}
-        />
-      </div>
-    </main>
+    <appContext.Provider
+      value={{
+        displayedApp: featuredApp,
+        setDisplayedApp: setFeaturedApp,
+        appUrl: appUrl,
+        setAppUrl: setAppUrl,
+      }}
+    >
+      <main className={`home-container  ${styles["home-container__courses"]}`}>
+        <FeaturedApps></FeaturedApps>
+        <div
+          className={`home-container grid-2 ${styles["home-container__courses"]}`}
+        >
+          <Versions header={"Versions"} setVariants={setVariants} />
+          <Variants
+            key={versionId}
+            header={"Variants"}
+            versionId={versionId}
+            // getClickedCourseName={renderClickedCourse}
+          />
+        </div>
+      </main>
+    </appContext.Provider>
   );
 };
 

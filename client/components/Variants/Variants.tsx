@@ -1,5 +1,4 @@
 import DisplayVariants from "./DisplayVariants";
-import Link from "next/link";
 import Styles from "./styles/variants.module.css";
 
 interface VariantsProps {
@@ -9,10 +8,7 @@ interface VariantsProps {
 
 const Variants: React.FC<VariantsProps> = (props) => {
   return (
-    <section
-      className={`${Styles["variants-container"]}`}
-      // style={{ paddingTop: "3rem" }}
-    >
+    <section className={`${Styles["variants-container"]}`}>
       <div
         className={Styles.header}
         style={{
@@ -25,7 +21,6 @@ const Variants: React.FC<VariantsProps> = (props) => {
       </div>
       <ul className={Styles.coursesList}>
         <DisplayVariants
-          // url={"http://localhost:8000/api/variants/310.0.0.0.84"}
           mapVersionId={props.versionId}
           url={`http://localhost:8000/api/variants/${props.versionId}`}
         ></DisplayVariants>

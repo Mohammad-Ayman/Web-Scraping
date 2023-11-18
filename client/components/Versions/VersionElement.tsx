@@ -1,13 +1,13 @@
 "use client";
-import { useState, useContext, ReactNode } from "react";
+import { useState, ReactNode } from "react";
 import Image from "next/image";
 import styles from "./styles/VersionElement.module.css";
-
+import { Instagram } from "@mui/icons-material";
 interface VersionElementProps {
   saved: boolean;
   id: string;
   versionId: string;
-  image: string;
+  image: string | undefined;
   date: string;
   totalVariants: number;
   children?: ReactNode;
@@ -20,17 +20,11 @@ const VersionElement: React.FC<VersionElementProps> = (props) => {
       data-courseid={props.id}
     >
       <div className={styles["image-container"]}>
-        {/* <Image
-          src="/tiktok.png"
-          width={3500}
-          height={3499}
-          alt="Picture of the author"
-        /> */}
         <Image
-          src="/instagramXL.png"
+          src={`/assets/images/${props.image ? props.image : "instagram"}.png`}
           width={3500}
           height={3499}
-          alt="Picture of the author"
+          alt="Picture of the app"
         />
       </div>
       <div className={`${styles.text} mflex`}>

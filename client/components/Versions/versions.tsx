@@ -3,10 +3,6 @@ import Link from "next/link";
 import Styles from "./styles/versions.module.css";
 
 interface VersionsProps {
-  // versionId: string;
-  // totalVariants: number;
-  // releaseDate: string;
-  // image: string;
   header: string;
   setVariants: (id: string) => void;
 }
@@ -35,7 +31,7 @@ const Versions: React.FC<VersionsProps> = (props) => {
       </div>
       <ul onClick={getClickedCourse} className={Styles.coursesList}>
         <DisplayVersions
-          url={"http://localhost:8000/api/versions"}
+          url={"http://localhost:8000/api/versions/tiktok-pte-ltd/tik-tok/"}
         ></DisplayVersions>
       </ul>
     </section>
