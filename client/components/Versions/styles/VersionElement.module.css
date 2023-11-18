@@ -57,8 +57,11 @@
   fill: #b1b1b1;
 }
 .active-icon {
-  fill: #2e8dff;
 }
+.icon:hover {
+  fill: #e63c3c;
+}
+
 .author-name {
   font-size: 1.2rem;
   font-weight: 500;
