@@ -18,7 +18,7 @@ const variantController = {
     console.log("req.params.versionId", req.params);
     console.log("req.params.variantsUrl", req.params.variantsUrl);
     try {
-      await saveVariants(req.params.versionId.trim(), req.params[0].trim());
+      await saveVariants(req.params.versionId, req.params[0].trim());
       const variants = await Variant.find({
         versionId: req.params.versionId.trim(),
       });
