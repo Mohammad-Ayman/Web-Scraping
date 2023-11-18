@@ -38,7 +38,7 @@ const versionController = {
     try {
       const updatedVersion = await Version.findOneAndUpdate(
         { versionId: req.params.versionId },
-        { $set: { releaseDate: new Date() } },
+        { $set: { dpi: req.params.newValue } },
         { new: true }
       );
       res.json(updatedVersion);

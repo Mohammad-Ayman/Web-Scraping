@@ -9,7 +9,10 @@ const router = express.Router();
 router.get("/versions/:app/:packageName", versionsController.getAllVersions);
 router.get("/version/:versionId", versionsController.getVersionById);
 router.delete("/version/:versionId", versionsController.deleteVersionById);
-router.put("/version/:versionId", versionsController.updateVersionById);
+router.put(
+  "/version/:versionId/:newValue",
+  versionsController.updateVersionById
+);
 
 router.get("/variants", variantController.getAllVariants);
 //use wildcard parameter
