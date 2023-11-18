@@ -2,7 +2,8 @@
 import mongoose from "../db/connection.js";
 
 const versionSchema = new mongoose.Schema({
-  versionId: String,
+  versionId: { type: String, unique: true },
+  appName: { type: String, required: true },
   releaseDate: String,
   totalVariants: Number,
   variantsURL: String,

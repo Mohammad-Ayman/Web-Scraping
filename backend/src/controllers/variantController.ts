@@ -1,12 +1,13 @@
 // controllers/variantController.js
-import { Express, Request, Response } from "express";
+import { Request, Response } from "express";
 import Variant from "../models/variantModel.js";
+import { saveVariants } from "../utils/savingToDb.js";
 
 const variantController = {
   getAllVariants: async (req: Request, res: Response) => {
     try {
-      const variants = await Variant.find();
-      res.json(variants);
+      // const variants = await Variant.find();
+      res.json(saveVariants);
     } catch (error: any) {
       console.error("Error getting variants:", error.message);
       res.status(500).send("Internal Server Error");
@@ -14,7 +15,10 @@ const variantController = {
   },
 
   getVariantByVersionId: async (req: Request, res: Response) => {
+    console.log("req.params.versionId", req.params);
+    console.log("req.params.variantsUrl", req.params.variantsUrl);
     try {
+      await saveVariants(req.params.versionId.trim(), req.params[0].trim());
       const variants = await Variant.find({
         versionId: req.params.versionId.trim(),
       });

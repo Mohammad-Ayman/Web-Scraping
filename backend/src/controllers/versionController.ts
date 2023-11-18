@@ -1,11 +1,14 @@
 // controllers/versionController.js
-import { Express, Request, Response } from "express";
+import { Request, Response } from "express";
 import Version from "../models/versionModel.js";
+import { saveVersions } from "../utils/savingToDb.js";
 
 const versionController = {
   getAllVersions: async (req: Request, res: Response) => {
     try {
-      const versions = await Version.find();
+      const { app, packageName } = req.params;
+      await saveVersions(app, packageName);
+      const versions = await Version.find({ appName: app });
       res.json(versions);
     } catch (error: any) {
       console.error("Error getting versions:", error.message);
@@ -35,7 +38,7 @@ const versionController = {
     try {
       const updatedVersion = await Version.findOneAndUpdate(
         { versionId: req.params.versionId },
-        { $set: { releaseDate: new Date() } },
+        { $set: { dpi: req.params.newValue } },
         { new: true }
       );
       res.json(updatedVersion);

@@ -1,5 +1,6 @@
 interface Version {
   version: string;
+  appName: String;
   releaseDate: string;
   variantsCount: number;
   variantsURL: string;

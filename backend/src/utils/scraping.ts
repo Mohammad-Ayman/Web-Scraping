@@ -2,11 +2,13 @@ import axios from "axios";
 import cheerio from "cheerio";
 import { Version, Variant } from "../types/interfaces";
 
-export const scrapeVersions = async () => {
+export const scrapeVersions = async (app: string, packageName: string) => {
   try {
     const response = await axios.get(
-      "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
+      `https://www.apkmirror.com/apk/${app}/${packageName}`
     );
+    // "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
+    // "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok/"
 
     const versions: Version[] = [];
     const limit = 10; // Set the desired limit
@@ -37,6 +39,7 @@ export const scrapeVersions = async () => {
           const variantsURL = variantsURLe ? variantsURLe.trim() : "";
           versions.push({
             version: versionInfo.split(" ")[1],
+            appName: app,
             releaseDate: versionReleaseDate,
             variantsCount: +variantsCount.split(" ")[0],
             variantsURL,
@@ -60,10 +63,16 @@ export const scrapeVersions = async () => {
   }
 };
 
-export const scrapeVariants = async (versionId: string) => {
+export const scrapeVariants = async (
+  versionId: string,
+  variantsUrl: string
+) => {
+  console.log(versionId);
   try {
-    const urlVersion = versionId.replace(".", "-");
-    const completeURL = `https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-${urlVersion}-release/`;
+    const urlVersion = variantsUrl.replace(".", "-");
+    // const completeURL = `https://www.apkmirror.com/apk/instagram/instagram-instagram/instagram-instagram-${urlVersion}-release/`;
+    const completeURL = `https://www.apkmirror.com/apk${urlVersion}`;
+    console.log("complete URL", completeURL);
     const response = await axios.get(completeURL);
 
     const variants: Variant[] = [];

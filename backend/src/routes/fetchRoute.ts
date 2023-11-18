@@ -1,49 +1,25 @@
 // routes/fetchRoute.js
 import express, { Request, Response } from "express";
-import { scrapeVersions, scrapeVariants } from "../utils/scraping.js";
-import Version from "../models/versionModel.js";
-import Variant from "../models/variantModel.js";
+import { saveVersions, saveVariants } from "../utils/savingToDb.js";
 
 const router = express.Router();
 
-router.get("/versions", async (req: Request, res: Response) => {
-  console.log("Handling /fetch request");
-  let versions = await scrapeVersions();
+router.get(
+  "/versions/:app/:packageName",
+  async (req: Request, res: Response) => {
+    const { app, packageName } = req.params;
+    console.log(app);
+    let versions = await saveVersions(app, packageName);
 
-  // Iterate over versions and save each to the database
-  for (const version of versions!) {
-    const newVersion = new Version({
-      versionId: version.version,
-      releaseDate: version.releaseDate,
-      totalVariants: version.variantsCount,
-      variantsURL: version.variantsURL,
-    });
-
-    console.log(newVersion); // Check the created version before saving
-    await newVersion.save();
+    res.send(`Versions of ${app}/${packageName} fetched and saved!`);
   }
-  res.send("Data fetched and saved!");
-});
+);
 
 router.get("/variants/:versionId", async (req: Request, res: Response) => {
   let { versionId } = req.params;
-  console.log("Handling /fetch request", req.params);
-  let variants = await scrapeVariants(versionId.trim());
+  // let variants = await saveVariants(versionId.trim());
 
-  // Iterate over versions and save each to the database
-  for (const variant of variants!) {
-    const newVariant = new Variant({
-      versionId: variant.versionId,
-      variantId: variant.variantId,
-      architecture: variant.variantArchitecture,
-      minAndroidVersion: variant.variantMinAndroidVersion,
-      dpi: variant.dpi,
-    });
-
-    console.log(newVariant); // Check the created version before saving
-    await newVariant.save();
-  }
-  res.send("Data fetched and saved!");
+  res.send(`Variants with ${versionId.trim()} fetched and saved!`);
 });
 
 export default router;

@@ -1,5 +1,3 @@
-// models/versionModel.js
-
 import mongoose from "../db/connection.js";
 
 const variantSchema = new mongoose.Schema({
@@ -9,6 +7,9 @@ const variantSchema = new mongoose.Schema({
   minAndroidVersion: String,
   dpi: String,
 });
+
+// Create a compound index on variantId and dpi
+variantSchema.index({ variantId: 1, dpi: 1 }, { unique: true });
 
 const Variant = mongoose.model("Variant", variantSchema);
 
