@@ -15,8 +15,25 @@ interface VersionElementProps {
 }
 const VersionElement: React.FC<VersionElementProps> = (props) => {
   const [saved, setSaved] = useState(props.saved);
+  const [isDeleted, setIsDeleted] = useState(false);
+  const deleteByVersionId = (versionId: string) => {
+    fetch(`http://localhost:8000/api/version/${versionId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        // Handle the response
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        setIsDeleted(true);
+      })
+      .catch((error) => {
+        console.error("Error deleting version:", error);
+      });
+  };
   return (
     <li
+      style={{ display: isDeleted ? "none" : "" }}
       className={`${styles["myLearning-card"]} mflex`}
       data-variantsurl={props.variantsUrl}
       data-courseid={props.id}
@@ -35,6 +52,7 @@ const VersionElement: React.FC<VersionElementProps> = (props) => {
             <h2>Version ID: {props.versionId} </h2>
             <h2>Release Date: {props.date}</h2>
             <svg
+              onClick={() => deleteByVersionId(props.versionId)}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
@@ -42,7 +60,7 @@ const VersionElement: React.FC<VersionElementProps> = (props) => {
             >
               <path
                 fillRule="evenodd"
-                d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
                 clipRule="evenodd"
               />
             </svg>

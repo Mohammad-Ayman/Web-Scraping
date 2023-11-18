@@ -10,7 +10,6 @@ import appContext from "@/store/App-Context";
 import styles from "./coursePage.module.css";
 
 const Courses = () => {
-  const appCtx = useContext(appContext);
   const [isLoading, setIsLoading] = useState(false);
   const [versionId, setVersionId] = useState("");
   const [variantsUrl, setVariantsUrl] = useState("");
@@ -18,8 +17,6 @@ const Courses = () => {
   const [appUrl, setAppUrl] = useState("instagram/instagram-instagram/");
 
   const setVariants = (id: string, url: string) => {
-    console.log("url", url);
-    console.log("id", id);
     setVersionId(id);
     setVariantsUrl(url);
   };

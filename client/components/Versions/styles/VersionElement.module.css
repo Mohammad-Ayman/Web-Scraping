@@ -10,6 +10,11 @@
   margin-bottom: 2rem;
 }
 
+.myLearning-card-clicked {
+  border: 1px solid #2e8dff;
+  background-color: #e8eff6;
+}
+
 .myLearning-card:hover {
   border: 1px solid #2e8dff;
   background-color: #e8eff6;

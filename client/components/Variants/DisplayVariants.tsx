@@ -20,10 +20,8 @@ const DisplayCards: React.FC<DisplayCardsProps> = ({ url, mapVersionId }) => {
   const [variants, setVariants] = useState<Variant[]>([]);
   const getVariants = async () => {
     try {
-      console.log("variantsurl", url);
       const response = await fetch(url);
       const data = await response.json();
-      console.log("data", data.length);
       setVariants(data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -38,7 +36,7 @@ const DisplayCards: React.FC<DisplayCardsProps> = ({ url, mapVersionId }) => {
       return (
         <VariantElement
           onClick={() => console.log("variant Clicked")}
-          key={variant.variantId}
+          key={variant.variantId + variant.dpi}
           versionId={variant.versionId}
           variantId={variant.variantId}
           variantArchitecture={variant.architecture}
