@@ -2,11 +2,13 @@ import axios from "axios";
 import cheerio from "cheerio";
 import { Version, Variant } from "../types/interfaces";
 
-export const scrapeVersions = async () => {
+export const scrapeVersions = async (app: string, packageName: string) => {
   try {
     const response = await axios.get(
-      "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
+      `https://www.apkmirror.com/apk/${app}/${packageName}`
     );
+    // "https://www.apkmirror.com/apk/instagram/instagram-instagram/"
+    // "https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok/"
 
     const versions: Version[] = [];
     const limit = 10; // Set the desired limit
@@ -37,6 +39,7 @@ export const scrapeVersions = async () => {
           const variantsURL = variantsURLe ? variantsURLe.trim() : "";
           versions.push({
             version: versionInfo.split(" ")[1],
+            appName: app,
             releaseDate: versionReleaseDate,
             variantsCount: +variantsCount.split(" ")[0],
             variantsURL,

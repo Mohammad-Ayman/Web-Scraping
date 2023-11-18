@@ -6,10 +6,10 @@ import variantController from "../controllers/variantController.js";
 
 const router = express.Router();
 
-router.get("/versions", versionsController.getAllVersions);
-router.get("/versions/:versionId", versionsController.getVersionById);
-router.delete("/versions/:versionId", versionsController.deleteVersionById);
-router.put("/versions/:versionId", versionsController.updateVersionById);
+router.get("/versions/:app/:packageName", versionsController.getAllVersions);
+router.get("/version/:versionId", versionsController.getVersionById);
+router.delete("/version/:versionId", versionsController.deleteVersionById);
+router.put("/version/:versionId", versionsController.updateVersionById);
 
 router.get("/variants", variantController.getAllVariants);
 router.get("/variants/:versionId", variantController.getVariantByVersionId);

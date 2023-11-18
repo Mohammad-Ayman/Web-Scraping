@@ -1,6 +1,7 @@
 // controllers/variantController.js
-import { Express, Request, Response } from "express";
+import { Request, Response } from "express";
 import Variant from "../models/variantModel.js";
+import { saveVariants } from "../utils/savingToDb.js";
 
 const variantController = {
   getAllVariants: async (req: Request, res: Response) => {
@@ -15,6 +16,7 @@ const variantController = {
 
   getVariantByVersionId: async (req: Request, res: Response) => {
     try {
+      await saveVariants(req.params.versionId.trim());
       const variants = await Variant.find({
         versionId: req.params.versionId.trim(),
       });

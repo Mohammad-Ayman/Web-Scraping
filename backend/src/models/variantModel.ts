@@ -4,7 +4,7 @@ import mongoose from "../db/connection.js";
 
 const variantSchema = new mongoose.Schema({
   versionId: String,
-  variantId: String,
+  variantId: { type: String, unique: true },
   architecture: String,
   minAndroidVersion: String,
   dpi: String,
