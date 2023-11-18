@@ -17,7 +17,7 @@ router.get(
 
 router.get("/variants/:versionId", async (req: Request, res: Response) => {
   let { versionId } = req.params;
-  let variants = await saveVariants(versionId.trim());
+  // let variants = await saveVariants(versionId.trim());
 
   res.send(`Variants with ${versionId.trim()} fetched and saved!`);
 });

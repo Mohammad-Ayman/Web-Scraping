@@ -12,7 +12,11 @@ router.delete("/version/:versionId", versionsController.deleteVersionById);
 router.put("/version/:versionId", versionsController.updateVersionById);
 
 router.get("/variants", variantController.getAllVariants);
-router.get("/variants/:versionId", variantController.getVariantByVersionId);
+//use wildcard parameter
+router.get(
+  "/variants/:versionId/:variantsUrl*",
+  variantController.getVariantByVersionId
+);
 router.delete("/variants/:versionId", variantController.deleteVariantById);
 router.put("/variants/:versionId", variantController.updateVariantById);
 

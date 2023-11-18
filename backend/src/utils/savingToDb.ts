@@ -34,8 +34,8 @@ export const saveVersions = async (app: string, packageName: string) => {
   }
 };
 
-export const saveVariants = async (versionId: string) => {
-  let variants = await scrapeVariants(versionId);
+export const saveVariants = async (versionId: string, variantsUrl: string) => {
+  let variants = await scrapeVariants(versionId, variantsUrl);
 
   // Handle where variants is empty
   if (!variants || variants.length === 0) {
@@ -54,7 +54,7 @@ export const saveVariants = async (versionId: string) => {
   try {
     // bulk insert
     await Variant.insertMany(variantsToInsert, { ordered: false });
-    return "Saved Variants Successfully";
+    return variantsToInsert;
   } catch (error: any) {
     if (error.code === 11000) {
       // Duplicate key error (variantId is not unique)

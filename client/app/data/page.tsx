@@ -1,33 +1,27 @@
 "use client";
 import dynamic from "next/dynamic";
 import { redirect } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import Versions from "@/components/Versions/versions";
 import Variants from "@/components/Variants/Variants";
-import FeaturedApps from "@/components/featuredApps/FeaturedApps";
+import FeaturedApps from "@/components/FeaturedApps/FeaturedApps";
 import appContext from "@/store/App-Context";
 
 import styles from "./coursePage.module.css";
 
 const Courses = () => {
+  const appCtx = useContext(appContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [versionId, setVersionId] = useState("310.0.0.0.84");
+  const [versionId, setVersionId] = useState("");
+  const [variantsUrl, setVariantsUrl] = useState("");
   const [featuredApp, setFeaturedApp] = useState("instagram");
   const [appUrl, setAppUrl] = useState("instagram/instagram-instagram/");
-  const [versions, setVersions] = useState([]);
-  const getVersions = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/api/versions");
-      const data = await response.json();
-      console.log(data);
-      setVersions(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-  const setVariants = (id: string) => {
-    console.log(id);
+
+  const setVariants = (id: string, url: string) => {
+    console.log("url", url);
+    console.log("id", id);
     setVersionId(id);
+    setVariantsUrl(url);
   };
 
   return (
@@ -49,6 +43,7 @@ const Courses = () => {
             key={versionId}
             header={"Variants"}
             versionId={versionId}
+            variantsUrl={variantsUrl}
             // getClickedCourseName={renderClickedCourse}
           />
         </div>

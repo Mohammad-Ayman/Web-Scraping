@@ -9,15 +9,13 @@ interface Version {
   releaseDate: string;
   image: string | undefined;
   header: string;
+  variantsURL: string;
   setVariants: (id: string) => void;
 }
-interface DisplayVersionsProps {
-  url: string;
-}
-const DisplayVersions: React.FC<DisplayVersionsProps> = ({ url }) => {
+
+const DisplayVersions: React.FC = () => {
   let appCtx = useContext(appContext);
   const [versions, setVersions] = useState<Version[]>([]);
-  // const [url, setUrl] = useState();
   const getVersions = async () => {
     try {
       const response = await fetch(
@@ -42,6 +40,7 @@ const DisplayVersions: React.FC<DisplayVersionsProps> = ({ url }) => {
         image={appCtx?.displayedApp}
         date={version.releaseDate}
         totalVariants={version.totalVariants}
+        variantsUrl={version.variantsURL}
         saved={true}
       ></VersionElement>
     );

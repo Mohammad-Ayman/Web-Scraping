@@ -15,7 +15,7 @@ app.use("/fetch", fetchRoute);
 const server = app.listen(port, async () => {
   console.log(`App running on http://localhost:${port}`);
   await connectToMongo();
-  // await clearDatabase();
+  await clearDatabase();
 });
 
 export default server;

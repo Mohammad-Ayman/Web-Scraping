@@ -20,6 +20,7 @@ const DisplayCards: React.FC<DisplayCardsProps> = ({ url, mapVersionId }) => {
   const [variants, setVariants] = useState<Variant[]>([]);
   const getVariants = async () => {
     try {
+      console.log("variantsurl", url);
       const response = await fetch(url);
       const data = await response.json();
       console.log("data", data.length);

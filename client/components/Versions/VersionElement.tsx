@@ -2,7 +2,7 @@
 import { useState, ReactNode } from "react";
 import Image from "next/image";
 import styles from "./styles/VersionElement.module.css";
-import { Instagram } from "@mui/icons-material";
+
 interface VersionElementProps {
   saved: boolean;
   id: string;
@@ -10,6 +10,7 @@ interface VersionElementProps {
   image: string | undefined;
   date: string;
   totalVariants: number;
+  variantsUrl: string;
   children?: ReactNode;
 }
 const VersionElement: React.FC<VersionElementProps> = (props) => {
@@ -17,6 +18,7 @@ const VersionElement: React.FC<VersionElementProps> = (props) => {
   return (
     <li
       className={`${styles["myLearning-card"]} mflex`}
+      data-variantsurl={props.variantsUrl}
       data-courseid={props.id}
     >
       <div className={styles["image-container"]}>

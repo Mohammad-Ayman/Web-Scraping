@@ -4,6 +4,7 @@ import Styles from "./styles/variants.module.css";
 interface VariantsProps {
   header: string;
   versionId: string;
+  variantsUrl: string;
 }
 
 const Variants: React.FC<VariantsProps> = (props) => {
@@ -22,7 +23,7 @@ const Variants: React.FC<VariantsProps> = (props) => {
       <ul className={Styles.coursesList}>
         <DisplayVariants
           mapVersionId={props.versionId}
-          url={`http://localhost:8000/api/variants/${props.versionId}`}
+          url={`http://localhost:8000/api/variants/${props.versionId}${props.variantsUrl}`}
         ></DisplayVariants>
       </ul>
     </section>

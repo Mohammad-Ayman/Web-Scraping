@@ -1,10 +1,9 @@
 import DisplayVersions from "./DisplayVersions";
-import Link from "next/link";
 import Styles from "./styles/versions.module.css";
 
 interface VersionsProps {
   header: string;
-  setVariants: (id: string) => void;
+  setVariants: (id: string, variantsUrl: string) => void;
 }
 const Versions: React.FC<VersionsProps> = (props) => {
   const getClickedCourse = (event: React.MouseEvent<HTMLUListElement>) => {
@@ -13,8 +12,12 @@ const Versions: React.FC<VersionsProps> = (props) => {
       const clickedCourseID = (event.target as HTMLElement)
         ?.closest("li")
         ?.getAttribute("data-courseid");
-      // console.log("CLicked", liExist, clickedCourseID);
-      if (clickedCourseID) props.setVariants(clickedCourseID);
+      const variantsUrl = (event.target as HTMLElement)
+        ?.closest("li")
+        ?.getAttribute("data-variantsurl");
+      // console.log("CLicked", liExist, variantsUrl);
+      if (variantsUrl && clickedCourseID)
+        props.setVariants(clickedCourseID, variantsUrl);
     }
   };
 
@@ -30,9 +33,7 @@ const Versions: React.FC<VersionsProps> = (props) => {
         <h2 className="header-text">{props.header}</h2>
       </div>
       <ul onClick={getClickedCourse} className={Styles.coursesList}>
-        <DisplayVersions
-          url={"http://localhost:8000/api/versions/tiktok-pte-ltd/tik-tok/"}
-        ></DisplayVersions>
+        <DisplayVersions />
       </ul>
     </section>
   );
