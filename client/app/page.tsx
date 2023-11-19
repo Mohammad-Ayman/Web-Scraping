@@ -1,21 +1,48 @@
-"use client"; 
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
+import { useState } from "react";
+import Versions from "@/components/Versions/versions";
+import Variants from "@/components/Variants/Variants";
+import FeaturedApps from "@/components/FeaturedApps/FeaturedApps";
+import appContext from "@/store/App-Context";
 
-export default function Home() {
-  const getVersions = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/api/versions");
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+import styles from "./appPage.module.css";
+
+const Courses = () => {
+  const [versionId, setVersionId] = useState("");
+  const [variantsUrl, setVariantsUrl] = useState("");
+  const [featuredApp, setFeaturedApp] = useState("instagram");
+  const [appUrl, setAppUrl] = useState("instagram/instagram-instagram/");
+
+  const setVariants = (id: string, url: string) => {
+    setVersionId(id);
+    setVariantsUrl(url);
   };
 
   return (
-    <main>
-      <button onClick={getVersions}>Fetch Data</button>
-    </main>
+    <appContext.Provider
+      value={{
+        displayedApp: featuredApp,
+        setDisplayedApp: setFeaturedApp,
+        appUrl: appUrl,
+        setAppUrl: setAppUrl,
+      }}
+    >
+      <main className={`home-container  ${styles["home-container__courses"]} `}>
+        <FeaturedApps></FeaturedApps>
+        <div
+          className={`home-container grid-2 ${styles["home-container__courses"]} ${styles.limitHeight}`}
+        >
+          <Versions header={"Versions"} setVariants={setVariants} />
+          <Variants
+            key={versionId}
+            header={"Variants"}
+            versionId={versionId}
+            variantsUrl={variantsUrl}
+          />
+        </div>
+      </main>
+    </appContext.Provider>
   );
-}
+};
+
+export default Courses;

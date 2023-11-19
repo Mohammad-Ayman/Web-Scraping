@@ -1,25 +1,24 @@
 .variants-container {
   background-color: #fbfbfb;
-  height: 100%;
+  max-height: inherit;
+  min-height: 100%;
+  overflow-y: scroll;
 }
 
 .header {
   padding-top: 3rem;
   background-color: #f5f5f5;
 }
-.coursesList {
-  max-height: 200vh;
-  overflow-y: scroll;
-}
-.coursesList::-webkit-scrollbar {
+
+.variantsList::-webkit-scrollbar {
   width: 0em;
   height: 0em;
 }
 
-.coursesList::-webkit-scrollbar-thumb {
+.variantsList::-webkit-scrollbar-thumb {
   background-color: #fff;
 }
 
-.coursesList::-webkit-scrollbar-track {
+.variantsList::-webkit-scrollbar-track {
   background-color: transparent;
 }

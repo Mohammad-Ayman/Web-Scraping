@@ -17,7 +17,7 @@ const VariantElement: React.FC<Variant> = (props) => {
   return (
     <li
       className={`${styles["myLearning-card"]} mflex`}
-      data-courseid={props.variantId}
+      data-variantid={props.variantId}
     >
       <div className={`${styles.text} mflex`}>
         <div style={{ width: "100%", height: "100%" }}>
