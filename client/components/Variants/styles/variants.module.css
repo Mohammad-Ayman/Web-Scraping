@@ -7,19 +7,19 @@
   padding-top: 3rem;
   background-color: #f5f5f5;
 }
-.coursesList {
-  max-height: 200vh;
+.variantsList {
+  /* max-height: 118rem; */
   overflow-y: scroll;
 }
-.coursesList::-webkit-scrollbar {
+.variantsList::-webkit-scrollbar {
   width: 0em;
   height: 0em;
 }
 
-.coursesList::-webkit-scrollbar-thumb {
+.variantsList::-webkit-scrollbar-thumb {
   background-color: #fff;
 }
 
-.coursesList::-webkit-scrollbar-track {
+.variantsList::-webkit-scrollbar-track {
   background-color: transparent;
 }

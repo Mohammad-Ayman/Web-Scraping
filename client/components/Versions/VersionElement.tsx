@@ -36,7 +36,7 @@ const VersionElement: React.FC<VersionElementProps> = (props) => {
       style={{ display: isDeleted ? "none" : "" }}
       className={`${styles["myLearning-card"]} mflex`}
       data-variantsurl={props.variantsUrl}
-      data-courseid={props.id}
+      data-versionid={props.id}
     >
       <div className={styles["image-container"]}>
         <Image

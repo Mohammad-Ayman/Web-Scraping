@@ -20,7 +20,7 @@ const Variants: React.FC<VariantsProps> = (props) => {
       >
         <h2 className="header-text">{props.header}</h2>
       </div>
-      <ul className={Styles.coursesList}>
+      <ul className={Styles.variantsList}>
         <DisplayVariants
           mapVersionId={props.versionId}
           url={`http://localhost:8000/api/variants/${props.versionId}${props.variantsUrl}`}

@@ -6,18 +6,22 @@ interface VersionsProps {
   setVariants: (id: string, variantsUrl: string) => void;
 }
 const Versions: React.FC<VersionsProps> = (props) => {
-  const getClickedCourse = (event: React.MouseEvent<HTMLUListElement>) => {
+  const getClickedVersion = (event: React.MouseEvent<HTMLUListElement>) => {
     const liExist = (event.target as HTMLElement)?.closest("li");
     if (liExist !== null) {
-      const clickedCourseID = (event.target as HTMLElement)
+      const clickedVersionID = (event.target as HTMLElement)
         ?.closest("li")
-        ?.getAttribute("data-courseid");
+        ?.getAttribute("data-versionid");
       const variantsUrl = (event.target as HTMLElement)
         ?.closest("li")
         ?.getAttribute("data-variantsurl");
-      // console.log("CLicked", liExist, variantsUrl);
-      if (variantsUrl && clickedCourseID)
-        props.setVariants(clickedCourseID, variantsUrl);
+      if (variantsUrl && clickedVersionID) {
+        props.setVariants(clickedVersionID, variantsUrl);
+        const headerTextElement = document.querySelector(".header-text");
+        if (headerTextElement) {
+          headerTextElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     }
   };
 
@@ -32,7 +36,7 @@ const Versions: React.FC<VersionsProps> = (props) => {
       >
         <h2 className="header-text">{props.header}</h2>
       </div>
-      <ul onClick={getClickedCourse} className={Styles.coursesList}>
+      <ul onClick={getClickedVersion} className={Styles.coursesList}>
         <DisplayVersions />
       </ul>
     </section>
