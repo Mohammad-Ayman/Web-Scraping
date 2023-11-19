@@ -37,7 +37,14 @@ const DisplayVersions: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <p style={{ textAlign: "center", fontSize: "2rem", marginTop: "2rem" }}>
+        <p
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: "3rem",
+            marginTop: "2rem",
+          }}
+        >
           Loading...
         </p>
       ) : (
