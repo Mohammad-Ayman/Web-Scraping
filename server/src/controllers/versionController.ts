@@ -12,7 +12,15 @@ const versionController = {
       res.json(versions);
     } catch (error: any) {
       console.error("Error getting versions:", error.message);
-      res.status(500).send("Internal Server Error");
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
 
@@ -22,7 +30,15 @@ const versionController = {
       res.json(version);
     } catch (error: any) {
       console.error("Error getting version by ID:", error.message);
-      res.status(500).send("Internal Server Error");
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
   deleteVersionById: async (req: Request, res: Response) => {
@@ -30,7 +46,15 @@ const versionController = {
       await Version.deleteOne({ versionId: req.params.versionId });
       res.send("Version deleted!");
     } catch (error: any) {
-      res.status(500).json({ error: "Internal Server Error" });
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
 
@@ -43,11 +67,17 @@ const versionController = {
       );
       res.json(updatedVersion);
     } catch (error: any) {
-      res.status(500).json({ error: "Internal Server Error" });
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
-  // Add other controller methods for CRUD operations
 };
 
-// module.exports = versionController;
 export default versionController;

@@ -10,18 +10,30 @@ const variantController = {
       res.json(saveVariants);
     } catch (error: any) {
       console.error("Error getting variants:", error.message);
-      res.status(500).send("Internal Server Error");
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
 
   getVariantByVersionId: async (req: Request, res: Response) => {
     console.log("req.params.versionId", req.params);
     console.log("req.params.variantsUrl", req.params.variantsUrl);
+
     try {
       await saveVariants(req.params.versionId, req.params[0].trim());
+
+      // Fetch variants from the database
       const variants = await Variant.find({
         versionId: req.params.versionId.trim(),
       });
+
       if (variants.length > 0) {
         res.json(variants);
       } else {
@@ -32,7 +44,16 @@ const variantController = {
       }
     } catch (error: any) {
       console.error("Error getting variant by ID:", error.message);
-      res.status(500).send("Internal Server Error");
+
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
   deleteVariantById: async (req: Request, res: Response) => {
@@ -40,7 +61,15 @@ const variantController = {
       await Variant.deleteOne({ variantId: req.params.variantId });
       res.send("variant deleted!");
     } catch (error: any) {
-      res.status(500).json({ error: "Internal Server Error" });
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
   deleteVariantsByVersionId: async (req: Request, res: Response) => {
@@ -48,7 +77,15 @@ const variantController = {
       await Variant.deleteMany({ versionId: req.params.versionId });
       res.send("variant deleted!");
     } catch (error: any) {
-      res.status(500).json({ error: "Internal Server Error" });
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
   updateVariantById: async (req: Request, res: Response) => {
@@ -60,11 +97,17 @@ const variantController = {
       );
       res.json(updatedVariant);
     } catch (error: any) {
-      res.status(500).json({ error: "Internal Server Error" });
+      // Check for a specific error associated with rate limiting (status code 429)
+      if (error.statusCode === 429) {
+        res
+          .status(429)
+          .json({ message: "Rate limit exceeded. Please try again later." });
+      } else {
+        // For other errors, respond with a generic 500 status code
+        res.status(500).send("Internal Server Error");
+      }
     }
   },
-  // Add other controller methods for CRUD operations
 };
 
-// module.exports = variantController;
 export default variantController;
