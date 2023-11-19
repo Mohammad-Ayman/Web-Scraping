@@ -1,7 +1,5 @@
 "use client";
-import dynamic from "next/dynamic";
-import { redirect } from "next/navigation";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Versions from "@/components/Versions/versions";
 import Variants from "@/components/Variants/Variants";
 import FeaturedApps from "@/components/FeaturedApps/FeaturedApps";
@@ -10,7 +8,6 @@ import appContext from "@/store/App-Context";
 import styles from "./coursePage.module.css";
 
 const Courses = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [versionId, setVersionId] = useState("");
   const [variantsUrl, setVariantsUrl] = useState("");
   const [featuredApp, setFeaturedApp] = useState("instagram");
@@ -30,10 +27,10 @@ const Courses = () => {
         setAppUrl: setAppUrl,
       }}
     >
-      <main className={`home-container  ${styles["home-container__courses"]}`}>
+      <main className={`home-container  ${styles["home-container__courses"]} `}>
         <FeaturedApps></FeaturedApps>
         <div
-          className={`home-container grid-2 ${styles["home-container__courses"]}`}
+          className={`home-container grid-2 ${styles["home-container__courses"]} ${styles.limitHeight}`}
         >
           <Versions header={"Versions"} setVariants={setVariants} />
           <Variants
@@ -41,7 +38,6 @@ const Courses = () => {
             header={"Variants"}
             versionId={versionId}
             variantsUrl={variantsUrl}
-            // getClickedCourseName={renderClickedCourse}
           />
         </div>
       </main>

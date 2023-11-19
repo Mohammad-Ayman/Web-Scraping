@@ -1,16 +1,15 @@
 .variants-container {
   background-color: #fbfbfb;
-  height: 100%;
+  max-height: inherit;
+  min-height: 100%;
+  overflow-y: scroll;
 }
 
 .header {
   padding-top: 3rem;
   background-color: #f5f5f5;
 }
-.variantsList {
-  /* max-height: 118rem; */
-  overflow-y: scroll;
-}
+
 .variantsList::-webkit-scrollbar {
   width: 0em;
   height: 0em;

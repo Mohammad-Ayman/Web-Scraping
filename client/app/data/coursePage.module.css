@@ -19,6 +19,10 @@
   color: #2e8dff;
 }
 
+.limitHeight {
+  max-height: 125vh;
+}
+
 @media (max-width: 650px) {
   .home-container__courses {
     grid-template-columns: 1fr;
