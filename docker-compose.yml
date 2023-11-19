@@ -1,0 +1,28 @@
+# version: "3"
+# services:
+#   nextjs:
+#     build:
+#       context: ./client
+#     ports:
+#       - "3001:3000"
+#     depends_on:
+#       - express
+
+#   express:
+#     build:
+#       context: ./server
+#     ports:
+#       - "8000:3030"
+version: "3"
+services:
+  web-scraping-server:
+    image: web-scraping-server:1.3.4
+    ports:
+      - "8000:3030"
+    # Add other configuration options as needed
+
+  web-scraping-client:
+    image: web-scraping-client:1.1.0
+    ports:
+      - "3000:3000"
+    # Add other configuration options as needed
