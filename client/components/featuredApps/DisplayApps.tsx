@@ -1,4 +1,3 @@
-import { styled } from "styled-components";
 import styles from "./styles/featuredApps.module.css";
 import FeaturedAppElement from "./FeaturedAppElement";
 
@@ -7,25 +6,25 @@ let apps = [
     name: "Instagram",
     id: "instagram",
     url: "instagram/instagram-instagram/",
-    image: "/instagram.webp",
+    image: "/assets/images/instagram.webp",
   },
   {
     name: "TikTok",
     id: "tiktok-pte-ltd",
     url: "tiktok-pte-ltd/tik-tok/",
-    image: "/tiktok-pte-ltd.webp",
+    image: "/assets/images/tiktok-pte-ltd.webp",
   },
   {
     name: "Snapchat",
     id: "snap-inc",
     url: "snap-inc/snapchat/",
-    image: "/snap-inc.webp",
+    image: "/assets/images/snap-inc.webp",
   },
   {
     name: "Facebook",
     id: "facebook-2",
     url: "facebook-2/facebook/",
-    image: "/facebook-2.webp",
+    image: "/assets/images/facebook-2.webp",
   },
 ];
 
