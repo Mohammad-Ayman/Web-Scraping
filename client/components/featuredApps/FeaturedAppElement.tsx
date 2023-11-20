@@ -15,8 +15,6 @@ const FeaturedAppElement: React.FC<FeaturedAppElementProps> = (props) => {
   const updateDisplayedApp = () => {
     appCtx?.setDisplayedApp(props.id);
     appCtx?.setAppUrl(props.url);
-    console.log(appCtx?.displayedApp);
-    console.log(appCtx?.appUrl);
   };
   return (
     <li

@@ -7,25 +7,25 @@ let apps = [
     name: "Instagram",
     id: "instagram",
     url: "instagram/instagram-instagram/",
-    image: "/InstagramXL.png",
+    image: "/instagram.webp",
   },
   {
     name: "TikTok",
     id: "tiktok-pte-ltd",
     url: "tiktok-pte-ltd/tik-tok/",
-    image: "/tiktok.png",
+    image: "/tiktok-pte-ltd.webp",
   },
   {
     name: "Snapchat",
     id: "snap-inc",
     url: "snap-inc/snapchat/",
-    image: "/snapchat.png",
+    image: "/snap-inc.webp",
   },
   {
     name: "Facebook",
     id: "facebook-2",
     url: "facebook-2/facebook/",
-    image: "/Facebook.png",
+    image: "/facebook-2.webp",
   },
 ];
 

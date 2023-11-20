@@ -61,10 +61,6 @@ Deletion Functionality: Users can delete unwanted versions from the database.
    ```sh
    npm start
    ```
-4. Run checks and tests
-   ```sh
-   npm test
-   ```
 
 <br>
 
