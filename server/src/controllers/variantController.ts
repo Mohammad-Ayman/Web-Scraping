@@ -6,7 +6,7 @@ import { saveVariants } from "../utils/savingToDb.js";
 const variantController = {
   getAllVariants: async (req: Request, res: Response) => {
     try {
-      // const variants = await Variant.find();
+      const variants = await Variant.find();
       res.json(saveVariants);
     } catch (error: any) {
       console.error("Error getting variants:", error.message);
