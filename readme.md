@@ -42,8 +42,32 @@ Deletion Functionality: Users can delete unwanted versions from the database.
 2. [Npm](https://www.npmjs.com)
 3. [Git](https://git-scm.com/)
 4. MongoDB installed and running
+5. Docker and Docker Compose installed
 
-# Installation
+# Installation With Docker
+
+<hr>
+
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/Mohammad-Ayman/web-scraping.git
+   ```
+
+2. Navigate to the project folder
+   ```sh
+   cd web-scraping
+   ```
+3. Build and run the Docker containers
+   ```sh
+   docker-compose up -d
+   ```
+4. Open the application in your web browser.
+   Server: http://localhost:8000
+   Client: http://localhost:3000
+   <br>
+
+# Installation Without Docker
 
 <hr>
 
@@ -57,12 +81,19 @@ Deletion Functionality: Users can delete unwanted versions from the database.
    ```sh
    npm install
    ```
-3. Run the project
+3. Run the server
    ```sh
    npm start
    ```
-
-<br>
+4. Run the client
+   ```sh
+   npm run build
+   npm run start
+   ```
+5. Open the application in your web browser.
+   Server: http://localhost:8000
+   Client: http://localhost:3000
+   <br>
 
 ## Usage
 
@@ -114,34 +145,60 @@ Bu proje, Instagram, TikTok, Snapchat ve Facebook gibi popüler mobil uygulama p
 3. [Git](https://git-scm.com/)
 4. MongoDB kurulu ve çalışıyor olmalı
 
-## Kurulum
+# Docker ile Kurulum
+
 <hr>
 
-1. Clone the repo
+1. Repo'yu klonlayın
 
    ```sh
    git clone https://github.com/Mohammad-Ayman/web-scraping.git
    ```
 
-2. Install dependencies
+2. Proje klasörüne gidin
+   ```sh
+   cd web-scraping
+   ```
+3. Docker konteynerlerini oluşturun ve çalıştırın
+   ```sh
+   docker-compose up -d
+   ```
+4. Uygulamayı web tarayıcınızda açın.
+   Server: http://localhost:8000
+   Client: http://localhost:3000
+   <br>
+
+# Docker Olmadan Kurulum
+
+<hr>
+
+1. Repo'yu klonlayın
+
+   ```sh
+   git clone https://github.com/Mohammad-Ayman/web-scraping.git
+   ```
+
+2. Bağımlılıkları yükleyin
    ```sh
    npm install
    ```
-3. Run the project
+3. server çalıştırın
    ```sh
    npm start
    ```
-4. Run checks and tests
+4. client çalıştırın
    ```sh
-   npm test
+   npm run build
+   npm run start
    ```
+5. Uygulamayı web tarayıcınızda açın.
+   Server: http://localhost:8000
+   Client: http://localhost:3000
+   <br>
 
-<br>
 ## Kullanım
 
 1. Uygulamayı web tarayıcınızda açın.
 2. Bir sosyal medya platformu seçin.
 3. En son sürümleri keşfedin ve bir sürüme tıklayarak detaylarını görüntüleyin.
 4. İhtiyaca göre sürümleri silin.
-
-
