@@ -24,8 +24,7 @@ const VersionElement: React.FC<VersionElementProps> = (props) => {
         // Handle the response
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        setIsDeleted(true);
+        } else setIsDeleted(true);
       })
       .catch((error) => {
         console.error("Error deleting version:", error);
@@ -40,7 +39,7 @@ const VersionElement: React.FC<VersionElementProps> = (props) => {
     >
       <div className={styles["image-container"]}>
         <Image
-          src={`/assets/images/${props.image ? props.image : "instagram"}.png`}
+          src={`/assets/images/${props.image ? props.image : "instagram"}.webp`}
           width={3500}
           height={3499}
           alt="Picture of the app"

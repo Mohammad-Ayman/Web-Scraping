@@ -1,5 +1,5 @@
 // controllers/variantController.js
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import Variant from "../models/variantModel.js";
 import { saveVariants } from "../utils/savingToDb.js";
 
@@ -72,10 +72,14 @@ const variantController = {
       }
     }
   },
-  deleteVariantsByVersionId: async (req: Request, res: Response) => {
+  deleteVariantsByVersionId: async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
     try {
       await Variant.deleteMany({ versionId: req.params.versionId });
-      res.send("variant deleted!");
+      res.send(`variants with version Id ${req.params.versionId} deleted!`);
     } catch (error: any) {
       // Check for a specific error associated with rate limiting (status code 429)
       if (error.statusCode === 429) {
