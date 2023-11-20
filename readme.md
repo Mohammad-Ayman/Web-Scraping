@@ -1,6 +1,6 @@
 # Web Scraping
 
-<sup>[Scroll to Turkish Translation](#turkish-translation)</sup>
+<sup>[Türkçe Çeviriye kaydır](#turkish-translation)</sup>
 
 ## Overview
 
